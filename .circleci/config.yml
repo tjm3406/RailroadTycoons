@@ -13,9 +13,7 @@ jobs:
       - checkout
       - run:
           name: Test
-          command: |
-
-              java org.junit.runner.JUnitCore testsrc/TestRunner
+          command: java org.junit.runner.JUnitCore testsrc/TestRunner
 
 workflows:
   version: 2
