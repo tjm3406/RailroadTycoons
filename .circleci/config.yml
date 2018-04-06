@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/project
+    working_directory: ~/section-03-project-2-railroadtycoons
     docker:
        image: circleci/openjdk:9.0.4-jdk-node-browsers
 
@@ -27,6 +27,3 @@ workflows:
        test:
           requires:
              build
-          filters:
-            branches:
-              only: master
