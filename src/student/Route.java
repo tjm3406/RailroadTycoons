@@ -8,6 +8,11 @@ import model.Space;
 import model.Station;
 import model.Track;
 
+/**
+ * Concrete implementation of Route interface
+ *
+ * @author PedroBreton
+ */
 public class Route implements model.Route {
 
   private Baron baron;
@@ -16,7 +21,13 @@ public class Route implements model.Route {
   private Orientation orientation;
   private List<Track> tracks;
 
-
+  /**
+   * Constructs a Route instance
+   *
+   * @param origin a station
+   * @param destination a station
+   * @param orientation a orientation
+   */
   public Route(student.Station origin, student.Station destination, Orientation orientation) {
     this.origin = origin;
     this.destination = destination;
@@ -25,6 +36,9 @@ public class Route implements model.Route {
 
     tracks = new ArrayList<>();
 
+    /*
+    Create all the tracks
+     */
     switch (orientation) {
       case HORIZONTAL:
         for (int i = origin.getCol() + 1; i < destination.getCol(); i++) {
@@ -43,36 +57,71 @@ public class Route implements model.Route {
 
   }
 
+  /**
+   * Retrieve the Baron that owns the route
+   *
+   * @return Baron owner
+   */
   @Override
   public Baron getBaron() {
     return baron;
   }
 
+  /**
+   * Retrieve the origin
+   *
+   * @return station origin
+   */
   @Override
   public Station getOrigin() {
     return origin;
   }
 
+  /**
+   * Retrieve the destination
+   *
+   * @return station destination
+   */
   @Override
   public Station getDestination() {
     return destination;
   }
 
+  /**
+   * Retrieve the orientation
+   *
+   * @return Orientation orientation
+   */
   @Override
   public Orientation getOrientation() {
     return orientation;
   }
 
+  /**
+   * Retrieve the tracks that form the route
+   *
+   * @return List<Track> arrayList with all tracks
+   */
   @Override
   public List<Track> getTracks() {
     return tracks;
   }
 
+  /**
+   * Retrieve length of the route
+   *
+   * @return int length
+   */
   @Override
   public int getLength() {
     return tracks.size();
   }
 
+  /**
+   * Calculate points that the track is worth
+   *
+   * @return int points worth
+   */
   @Override
   public int getPointValue() {
     int points = 0;
@@ -98,15 +147,21 @@ public class Route implements model.Route {
     return points;
   }
 
+  /**
+   * Check is a space is in a specific route
+   *
+   * @param space The {@link Space} that may be in this route.
+   * @return boolean
+   */
   @Override
   public boolean includesCoordinate(Space space) {
     boolean isOnRoute = false;
 
-    if (origin.collocated(space) || destination.collocated(space) ) {
+    if (origin.collocated(space) || destination.collocated(space)) {
       isOnRoute = true;
     } else {
-      for (Track track : tracks){
-        if (track.collocated(space)){
+      for (Track track : tracks) {
+        if (track.collocated(space)) {
           isOnRoute = true;
           break;
         }
@@ -116,9 +171,16 @@ public class Route implements model.Route {
     return isOnRoute;
   }
 
+  /**
+   * claim the route for a baron
+   *
+   * @param claimant The {@link Baron} attempting to claim the route. Must not be null or {@link
+   * Baron#UNCLAIMED}.
+   * @return boolean whether claim was successful
+   */
   @Override
   public boolean claim(Baron claimant) {
-    if (baron == Baron.UNCLAIMED){
+    if (baron == Baron.UNCLAIMED) {
       baron = claimant;
       return true;
     }
