@@ -12,9 +12,14 @@ public class TrackTest {
   private Track dummyTrack2;
   private Track dummyTrack3;
   private Station dummyStation1;
+  private Station dummyStation2;
+  private Station dummyStation3;
 
   @Before
   public void setUp() throws Exception {
+    dummyStation1 = new Station("Station1", 0, 0);
+    dummyStation2 = new Station("Station2", 0, 2);
+    dummyStation3 = new Station("Station3", 2, 0);
 
     dummyTrack1 = new Track(0,0, new Route());
     //dummyTrack2 = new Track(1,0);
