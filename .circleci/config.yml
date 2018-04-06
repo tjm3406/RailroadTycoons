@@ -10,7 +10,6 @@ jobs:
        image: circleci/openjdk:9.0.4-jdk-node-browsers
 
     steps:
-       -checkout
        -run:
           name: Test
           command: mvn integration-test
