@@ -9,7 +9,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
+/**
+ * A test unit for the student.RailroadMap class
+ *
+ * @author Pedro Breton
+ */
 public class RailroadMapTest {
 
   private RailroadMap railroadMap;

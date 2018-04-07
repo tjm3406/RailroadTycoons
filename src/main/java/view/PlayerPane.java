@@ -9,73 +9,71 @@ import model.Orientation;
 import model.Player;
 
 /**
- * Displays information about each {@linkplain Player player} that the other
- * players are allowed to see; namely the number of pieces that the player has
- * remaining and the player's current score.
+ * Displays information about each {@linkplain Player player} that the other players are allowed to
+ * see; namely the number of pieces that the player has remaining and the player's current score.
  */
 public class PlayerPane extends GridPane implements RailroadBaronsView {
-    /**
-     * Font size used to display {@link Player} name and score.
-     */
-    private static final int FONT_SIZE = 23;
 
-    /**
-     * The {@link Text} used to display the {@link Player player's} score.
-     */
-    private final Text score;
+  /**
+   * Font size used to display {@link Player} name and score.
+   */
+  private static final int FONT_SIZE = 23;
 
-    /**
-     * The {@link Text} used to display the {@link Player player's} number of
-     * remaining pieces.
-     */
-    private final Text pieceCount;
+  /**
+   * The {@link Text} used to display the {@link Player player's} score.
+   */
+  private final Text score;
 
-    /**
-     * Creates a new player pane to display the current public state of the
-     * player that uses the specified {@linkplain Baron} to play.
-     *
-     * @param baron The {@link Baron} used by the {@link Player} about whom
-     *              this player pane will display information.
-     */
-    PlayerPane(Baron baron) {
-        setBackground(LIGHT_BROWN_BACKGROUND);
-        setPadding(DEFAULT_INSETS);
-        Text name = new Text();
-        name.setStyle(RailroadBaronsView.getFontCss(FONT_SIZE,
-                RailroadBaronsView.baronToColor(baron)));
-        name.setText(baron.toString());
+  /**
+   * The {@link Text} used to display the {@link Player player's} number of remaining pieces.
+   */
+  private final Text pieceCount;
 
-        score = new Text();
-        score.setStyle(RailroadBaronsView.getFontCss(FONT_SIZE, WHITE));
-        score.setText("0");
+  /**
+   * Creates a new player pane to display the current public state of the player that uses the
+   * specified {@linkplain Baron} to play.
+   *
+   * @param baron The {@link Baron} used by the {@link Player} about whom this player pane will
+   * display information.
+   */
+  PlayerPane(Baron baron) {
+    setBackground(LIGHT_BROWN_BACKGROUND);
+    setPadding(DEFAULT_INSETS);
+    Text name = new Text();
+    name.setStyle(RailroadBaronsView.getFontCss(FONT_SIZE,
+        RailroadBaronsView.baronToColor(baron)));
+    name.setText(baron.toString());
 
-        ImageView piece = new ImageView(PieceImage.PIECE_IMAGES.get(baron)
-                .getImage(Orientation.HORIZONTAL));
+    score = new Text();
+    score.setStyle(RailroadBaronsView.getFontCss(FONT_SIZE, WHITE));
+    score.setText("0");
 
-        pieceCount = new Text();
-        pieceCount.setStyle(RailroadBaronsView.getFontCss(FONT_SIZE, WHITE));
-        pieceCount.setText("0");
+    ImageView piece = new ImageView(PieceImage.PIECE_IMAGES.get(baron)
+        .getImage(Orientation.HORIZONTAL));
 
-        ColumnConstraints nameConstraints = new ColumnConstraints();
-        nameConstraints.setPercentWidth(66);
-        ColumnConstraints scoreConstraints = new ColumnConstraints();
-        scoreConstraints.setPercentWidth(34);
-        getColumnConstraints().addAll(nameConstraints, scoreConstraints);
+    pieceCount = new Text();
+    pieceCount.setStyle(RailroadBaronsView.getFontCss(FONT_SIZE, WHITE));
+    pieceCount.setText("0");
 
-        add(name, 0, 0);
-        add(score, 1, 0);
-        add(piece, 0, 1);
-        add(pieceCount, 1, 1);
-    }
+    ColumnConstraints nameConstraints = new ColumnConstraints();
+    nameConstraints.setPercentWidth(66);
+    ColumnConstraints scoreConstraints = new ColumnConstraints();
+    scoreConstraints.setPercentWidth(34);
+    getColumnConstraints().addAll(nameConstraints, scoreConstraints);
 
-    /**
-     * Updates the information displayed based on the
-     * {@linkplain Player player's} current state.
-     *
-     * @param player The {@link Player} that has been changed.
-     */
-    public void updateWithPlayer(Player player) {
-        score.setText(Integer.toString(player.getScore()));
-        pieceCount.setText(Integer.toString(player.getNumberOfPieces()));
-    }
+    add(name, 0, 0);
+    add(score, 1, 0);
+    add(piece, 0, 1);
+    add(pieceCount, 1, 1);
+  }
+
+  /**
+   * Updates the information displayed based on the {@linkplain Player player's} current state.
+   *
+   * @param player The {@link Player} that has been changed.
+   */
+  public void updateWithPlayer(Player player) {
+    score.setText(Integer.toString(player.getScore()));
+    pieceCount.setText(Integer.toString(player.getNumberOfPieces()));
+  }
 }
