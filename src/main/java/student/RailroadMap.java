@@ -30,7 +30,7 @@ public class RailroadMap implements model.RailroadMap {
    *
    * @param routes routes in the map
    */
-  public RailroadMap(ArrayList<Route> routes) {
+  public RailroadMap(List<model.Route> routes) {
     this.observers = new ArrayList<>();
     this.routes = new TreeSet<>(Comparator.comparingInt(model.Route::getLength));
     this.unclaimedRoutes = new TreeSet<>(Comparator.comparingInt(model.Route::getLength));
@@ -45,7 +45,7 @@ public class RailroadMap implements model.RailroadMap {
     grid = new model.Space[rows][cols];
 
     //Traverse routes list to populate grid with stations and tracks
-    for (Route route : routes) {
+    for (model.Route route : routes) {
       this.routes.add(route);
       this.unclaimedRoutes.add(route);
       grid[route.getOrigin().getRow()][route.getOrigin().getCol()] = route.getOrigin();

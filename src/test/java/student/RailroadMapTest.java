@@ -31,7 +31,7 @@ public class RailroadMapTest {
     dummyRoute1 = new Route(dummyStation1, dummyStation2, Orientation.HORIZONTAL);
     dummyRoute2 = new Route(dummyStation1, dummyStation3, Orientation.VERTICAL);
 
-    ArrayList<Route> routes = new ArrayList<>();
+    ArrayList<model.Route> routes = new ArrayList<>();
     routes.add(dummyRoute1);
     routes.add(dummyRoute2);
 
