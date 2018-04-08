@@ -16,8 +16,8 @@ import model.Track;
 public class Route implements model.Route {
 
   private Baron baron;
-  private student.Station origin;
-  private student.Station destination;
+  private model.Station origin;
+  private model.Station destination;
   private Orientation orientation;
   private List<Track> tracks;
 
@@ -28,7 +28,7 @@ public class Route implements model.Route {
    * @param destination a station
    * @param orientation a orientation
    */
-  public Route(student.Station origin, student.Station destination, Orientation orientation) {
+  public Route(model.Station origin, model.Station destination, Orientation orientation) {
     this.origin = origin;
     this.destination = destination;
     this.orientation = orientation;
