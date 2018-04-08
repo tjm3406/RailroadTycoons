@@ -31,15 +31,15 @@ public class DeckTest {
     System.out.println("Running reset() test");
     dummyDeck.drawACard();
     dummyDeck.reset();
-    assertNotEquals("Deck was shuffled", 200, dummyDeck.numberOfCardsRemaining());
+    assertNotEquals("Deck was shuffled", 180, dummyDeck.numberOfCardsRemaining());
   }
 
   @Test
   public void drawACard() {
     System.out.println("Running drawACard() test");
-    assertEquals("Untouched deck", 200, dummyDeck.numberOfCardsRemaining());
+    assertEquals("Untouched deck", 180, dummyDeck.numberOfCardsRemaining());
     assertFalse("Non-none card", dummyDeck.drawACard().equals(Card.NONE));
-    assertEquals("Untouched deck", 199, dummyDeck.numberOfCardsRemaining());
+    assertEquals("Untouched deck", 179, dummyDeck.numberOfCardsRemaining());
 
     while (dummyDeck.numberOfCardsRemaining() > 0) {
       dummyDeck.drawACard();
@@ -52,7 +52,7 @@ public class DeckTest {
   @Test
   public void numberOfCardsRemaining() {
     System.out.println("Running numberOfCardsRemaining() test");
-    assertEquals("200 cards left", 200, dummyDeck.numberOfCardsRemaining());
+    assertEquals("200 cards left", 180, dummyDeck.numberOfCardsRemaining());
 
     while (dummyDeck.numberOfCardsRemaining() > 100) {
       dummyDeck.drawACard();
