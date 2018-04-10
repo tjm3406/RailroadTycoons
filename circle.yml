@@ -15,5 +15,5 @@ test:
     - mvn clean verify
     - mkdir -p $CIRCLE_TEST_REPORTS/jacoco/
     - pwd
-    - ls
-    - cp -a /target/site/jacoco/ $CIRCLE_TEST_REPORTS/jacoco/
+    - tree
+    - cp -a /target/site/jacoco $CIRCLE_TEST_REPORTS/jacoco/
