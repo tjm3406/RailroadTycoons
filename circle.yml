@@ -12,3 +12,6 @@ test:
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/target/surefire-reports/.*txt" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+    - mvn clean verify
+    - mkdir -p $CIRCLE_TEST_REPORTS/jacoco/
+    - find . -type f -regex ".*/target/site/jacoco/ -exec cp {} $CIRCLE_TEST_REPORTS/jacoco/ \;
