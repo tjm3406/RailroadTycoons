@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="railroad-barons-starter" />
         <module name="RailroadBaronsStarter" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="railroad-barons-starter" target="1.9" />
       <module name="RailroadBaronsStarter" target="1.9" />
     </bytecodeTargetLevel>
   </component>
