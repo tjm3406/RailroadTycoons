@@ -157,15 +157,19 @@ public class Route implements model.Route {
   public boolean includesCoordinate(Space space) {
     boolean isOnRoute = false;
 
-    if (origin.collocated(space) || destination.collocated(space)) {
-      isOnRoute = true;
-    } else {
-      for (Track track : tracks) {
-        if (track.collocated(space)) {
+    switch (orientation) {
+      case VERTICAL:
+        if ((space.getCol() == this.origin.getCol()) && (space.getRow() >= this.origin.getRow()
+            && space.getRow() <= this.destination.getRow())) {
           isOnRoute = true;
-          break;
         }
-      }
+        break;
+      case HORIZONTAL:
+        if ((space.getRow() == this.origin.getRow()) && (space.getCol() >= this.origin.getCol()
+            && space.getCol() <= this.destination.getCol())) {
+          isOnRoute = true;
+        }
+        break;
     }
 
     return isOnRoute;

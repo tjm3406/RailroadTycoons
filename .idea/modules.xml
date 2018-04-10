@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RailroadBaronsStarter.iml" filepath="$PROJECT_DIR$/RailroadBaronsStarter.iml" />
       <module fileurl="file://$PROJECT_DIR$/railroad-barons-starter.iml" filepath="$PROJECT_DIR$/railroad-barons-starter.iml" />
     </modules>
   </component>
