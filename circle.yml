@@ -14,4 +14,4 @@ test:
     - find . -type f -regex ".*/target/surefire-reports/.*txt" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
     - mvn clean verify
     - mkdir -p $CIRCLE_TEST_REPORTS/jacoco/
-    - cp -a /target/site/jacoco/. $CIRCLE_TEST_REPORTS/jacoco/
+    - cp -a /target/site/jacoco/ $CIRCLE_TEST_REPORTS/jacoco/
