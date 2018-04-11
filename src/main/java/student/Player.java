@@ -15,15 +15,19 @@ public class Player implements model.Player {
   private int trainPieces;
   private HashMap<Card, Integer> hand;
   private int score;
-  private HashSet<Route> routes = new HashSet<>();
+  private HashSet<model.Route> routes;
   private model.Pair lastTwo;
-  private ArrayList<PlayerObserver> observers = new ArrayList<>();
+  private ArrayList<PlayerObserver> observers;
   private Baron baron;
   private int routesClaimedThisTurn;
 
 
   public Player(Baron baron) {
     this.baron = baron;
+    hand = new HashMap<>();
+    routes = new HashSet<>();
+    observers = new ArrayList<>();
+    score = 0;
   }
 
   /**
@@ -174,7 +178,40 @@ public class Player implements model.Player {
    */
   @Override
   public void claimRoute(model.Route route) throws RailroadBaronsException {
+    if (!canClaimRoute(route)) {
+      throw new RailroadBaronsException("Route can't be claimed!");
+    } else {
+      int length = route.getLength();
+      routes.add(route);
+      route.claim(baron);
+      trainPieces -= length;
+      boolean usingWild = false;
 
+      Card cardToUse = Card.NONE;
+      int currRightNumber = Integer.MAX_VALUE;
+
+      for (Card card : hand.keySet()) {
+        int currCardAmount = hand.get(card);
+
+        if (currCardAmount >= length && currCardAmount < currRightNumber) {
+          currRightNumber = currCardAmount;
+          cardToUse = card;
+        }
+      }
+
+      if (cardToUse == Card.NONE && hand.containsKey(Card.WILD)) {
+        for (Card card : hand.keySet()) {
+          int currCardAmount = hand.get(card);
+
+          if (currCardAmount >= length - 1 && currCardAmount < currRightNumber) {
+            currRightNumber = currCardAmount;
+            cardToUse = card;
+            usingWild = true;
+          }
+        }
+      }
+
+    }
   }
 
   /**
