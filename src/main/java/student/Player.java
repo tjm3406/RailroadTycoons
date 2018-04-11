@@ -19,7 +19,12 @@ public class Player implements model.Player {
   private model.Pair lastTwo;
   private ArrayList<PlayerObserver> observers = new ArrayList<>();
   private Baron baron;
+  private int routesClaimedThisTurn;
 
+
+  public Player(Baron baron) {
+    this.baron = baron;
+  }
 
   /**
    * This is called at the start of every game to reset the player to its initial state: <ul>
@@ -84,8 +89,7 @@ public class Player implements model.Player {
   @Override
   public void startTurn(model.Pair dealt) {
     lastTwo = dealt;
-
-
+    routesClaimedThisTurn = 0;
   }
 
   /**
@@ -96,7 +100,7 @@ public class Player implements model.Player {
    */
   @Override
   public model.Pair getLastTwoCards() {
-    return null;
+    return lastTwo;
   }
 
   /**
@@ -108,7 +112,7 @@ public class Player implements model.Player {
    */
   @Override
   public int countCardsInHand(Card card) {
-    return 0;
+    return hand.get(card);
   }
 
   /**
@@ -119,7 +123,7 @@ public class Player implements model.Player {
    */
   @Override
   public int getNumberOfPieces() {
-    return 0;
+    return trainPieces;
   }
 
   /**
@@ -137,6 +141,21 @@ public class Player implements model.Player {
    */
   @Override
   public boolean canClaimRoute(model.Route route) {
+    int routeLength = route.getLength();
+
+    if(route.getBaron() != Baron.UNCLAIMED && routesClaimedThisTurn == 0) {
+      return false;
+    }
+
+    else {
+      for(int number : hand.values()) {
+        if(hand.containsKey(Card.WILD)) {
+          return number + 1 >= routeLength;
+        }
+        else
+          return number >= routeLength;
+      }
+    }
     return false;
   }
 
