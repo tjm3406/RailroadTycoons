@@ -149,7 +149,7 @@ public class Player implements model.Player {
    *
    * @param route The {@link Route} to claim.
    * @throws RailroadBaronsException If the {@link Route} cannot be claimed, i.e. if the {@link
-   * #canClaimRoute(Route)} method returns false.
+   //* #canClaimRoute(Route)} method returns false.
    */
   @Override
   public void claimRoute(model.Route route) throws RailroadBaronsException {
