@@ -17,13 +17,17 @@ public class RouteTest {
 
   private Station origin;
   private Station destination;
+  private Station destination2;
   private Route dummyRoute1;
+  private Route dummyRoute2;
 
   @Before
   public void setUp() {
     origin = new Station("OriginStation", 1, 0);
     destination = new Station("DestinationStation", 3, 0);
+    destination2= new Station("DestinationStation2", 1, 3);
     dummyRoute1 = new Route(origin, destination, Orientation.VERTICAL);
+    dummyRoute2 = new Route(origin, destination2, Orientation.HORIZONTAL);
   }
 
   @After
@@ -78,6 +82,12 @@ public class RouteTest {
     assertTrue("Expected true", dummyRoute1.includesCoordinate(new Space(3, 0)));
 
     assertFalse("Expected false", dummyRoute1.includesCoordinate(new Space(2, 1)));
+
+    assertTrue("Expected true", dummyRoute2.includesCoordinate(new Space(1, 0)));
+    assertTrue("Expected true", dummyRoute2.includesCoordinate(new Space(1, 1)));
+    assertTrue("Expected true", dummyRoute2.includesCoordinate(new Space(1, 2)));
+
+    assertFalse("Expected false", dummyRoute2.includesCoordinate(new Space(2, 1)));
   }
 
   @Test
