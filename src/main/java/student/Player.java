@@ -1,16 +1,24 @@
 package student;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import model.Baron;
 import model.Card;
 import model.PlayerObserver;
 import model.RailroadBaronsException;
 
 public class Player implements model.Player {
+
   private int trainPieces;
   private HashMap<Card, Integer> hand;
-  
+  private int score;
+  private HashSet<Route> routes = new HashSet<>();
+  private Pair lastTwo;
+  private ArrayList<PlayerObserver> observers = new ArrayList<>();
+  private Baron baron;
 
 
   /**
@@ -25,6 +33,11 @@ public class Player implements model.Player {
    */
   @Override
   public void reset(Card... dealt) {
+    trainPieces = 45;
+    hand.clear();
+    score = 0;
+    routes.clear();
+    lastTwo = new Pair(Card.NONE, Card.NONE);
 
   }
 
@@ -36,7 +49,7 @@ public class Player implements model.Player {
    */
   @Override
   public void addPlayerObserver(PlayerObserver observer) {
-
+    observers.add(observer);
   }
 
   /**
@@ -47,7 +60,7 @@ public class Player implements model.Player {
    */
   @Override
   public void removePlayerObserver(PlayerObserver observer) {
-
+    observers.remove(observer);
   }
 
   /**
@@ -57,7 +70,7 @@ public class Player implements model.Player {
    */
   @Override
   public Baron getBaron() {
-    return null;
+    return baron;
   }
 
   /**
