@@ -180,7 +180,13 @@ public class Player implements model.Player {
   public void claimRoute(model.Route route) throws RailroadBaronsException {
     if (!canClaimRoute(route)) {
       throw new RailroadBaronsException("Route can't be claimed!");
-    } else {
+    }
+
+    else if(routesClaimedThisTurn > 0) {
+      throw new RailroadBaronsException("Already claimed a route this turn!");
+    }
+
+    else {
       int length = route.getLength();
       routes.add(route);
       route.claim(baron);
@@ -196,6 +202,7 @@ public class Player implements model.Player {
         if (currCardAmount >= length && currCardAmount < currRightNumber) {
           currRightNumber = currCardAmount;
           cardToUse = card;
+          routesClaimedThisTurn++;
         }
       }
 
@@ -207,9 +214,17 @@ public class Player implements model.Player {
             currRightNumber = currCardAmount;
             cardToUse = card;
             usingWild = true;
+            routesClaimedThisTurn++;
           }
         }
       }
+
+      if(usingWild) {
+        hand.put(cardToUse, hand.get(cardToUse) - currRightNumber);
+        hand.put(Card.WILD, hand.get(cardToUse)-1);
+      }
+      else
+        hand.put(cardToUse, hand.get(cardToUse) - currRightNumber);
 
     }
   }
@@ -222,7 +237,7 @@ public class Player implements model.Player {
    */
   @Override
   public Collection<model.Route> getClaimedRoutes() {
-    return null;
+    return routes;
   }
 
   /**
@@ -233,7 +248,10 @@ public class Player implements model.Player {
    */
   @Override
   public int getScore() {
-    return 0;
+    score = 0;
+    for(model.Route route : routes) {
+      
+    }
   }
 
   /**
