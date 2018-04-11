@@ -50,6 +50,7 @@ public class Player implements model.Player {
   @Override
   public void addPlayerObserver(PlayerObserver observer) {
     observers.add(observer);
+    //
   }
 
   /**
