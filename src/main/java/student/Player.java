@@ -293,6 +293,17 @@ public class Player implements model.Player {
    */
   @Override
   public boolean canContinuePlaying(int shortestUnclaimedRoute) {
-    return false;
+    boolean canContinue = false;
+
+    for(int number : hand.values()) {
+      if(hand.containsKey(Card.WILD) && number >= shortestUnclaimedRoute-1) {
+        canContinue = true;
+      }
+      else if(number >= shortestUnclaimedRoute) {
+        canContinue = true;
+      }
+    }
+
+    return canContinue;
   }
 }
