@@ -103,6 +103,8 @@ public class RailroadMapTest {
     //Get a track
     assertTrue("A track", railroadMap.getSpace(2, 3) instanceof Track);
 
+    assertNull("Non existent space", railroadMap.getSpace(-1,-1));
+
 
   }
 

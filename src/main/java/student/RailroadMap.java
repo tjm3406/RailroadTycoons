@@ -121,7 +121,11 @@ public class RailroadMap implements model.RailroadMap {
    */
   @Override
   public model.Space getSpace(int row, int col) {
-    return grid[row][col];
+
+    if ((row >=0 && row<rows) && (col>=0 && col<cols) ){
+      return grid[row][col];
+    }
+    return null;
   }
 
   /**
