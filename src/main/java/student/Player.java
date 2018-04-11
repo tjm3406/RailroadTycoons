@@ -16,7 +16,7 @@ public class Player implements model.Player {
   private HashMap<Card, Integer> hand;
   private int score;
   private HashSet<Route> routes = new HashSet<>();
-  private Pair lastTwo;
+  private model.Pair lastTwo;
   private ArrayList<PlayerObserver> observers = new ArrayList<>();
   private Baron baron;
 
@@ -37,7 +37,7 @@ public class Player implements model.Player {
     hand.clear();
     score = 0;
     routes.clear();
-    lastTwo = new Pair(Card.NONE, Card.NONE);
+    lastTwo = new student.Pair(Card.NONE, Card.NONE);
 
   }
 
@@ -50,7 +50,6 @@ public class Player implements model.Player {
   @Override
   public void addPlayerObserver(PlayerObserver observer) {
     observers.add(observer);
-    //
   }
 
   /**
@@ -84,6 +83,8 @@ public class Player implements model.Player {
    */
   @Override
   public void startTurn(model.Pair dealt) {
+    lastTwo = dealt;
+
 
   }
 
