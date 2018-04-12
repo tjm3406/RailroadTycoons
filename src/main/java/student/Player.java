@@ -54,6 +54,7 @@ public class Player implements model.Player {
     score = 0;
     routes.clear();
     lastTwo = new student.Pair(Card.NONE, Card.NONE);
+
     for(Card card : dealt) {
       hand.put(card, hand.get(card) + 1);
     }
