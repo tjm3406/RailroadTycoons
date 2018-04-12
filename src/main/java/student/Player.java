@@ -286,6 +286,9 @@ public class Player implements model.Player {
   public boolean canContinuePlaying(int shortestUnclaimedRoute) {
     boolean canContinue = false;
 
+    if(shortestUnclaimedRoute > trainPieces)
+      return false;
+
     for(int number : hand.values()) {
       if(hand.containsKey(Card.WILD) && number >= shortestUnclaimedRoute-1) {
         canContinue = true;

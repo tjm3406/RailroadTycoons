@@ -249,5 +249,11 @@ public class PlayerTest {
 
   @Test
   public void canContinuePlaying() {
+    player1.getHand().put(Card.RED, dummyRailroadMap.getRoute(2,5).getLength());
+    player1.getHand().put(Card.BLUE, dummyRailroadMap.getRoute(5,2).getLength());
+    player1.getHand().put(Card.WILD, 4);
+    player1.setTrainPieces(30);
+
+    assertEquals("Should be able to be claimed.", true, );
   }
 }
