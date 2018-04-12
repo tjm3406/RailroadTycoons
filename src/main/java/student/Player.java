@@ -22,7 +22,7 @@ public class Player implements model.Player {
   private model.Pair lastTwo;
   private ArrayList<PlayerObserver> observers;
   private Baron baron;
-  private int routesClaimedThisTurn;
+  private boolean hasClaimedRoute;
 
 
   public Player(Baron baron) {
@@ -54,6 +54,7 @@ public class Player implements model.Player {
     score = 0;
     routes.clear();
     lastTwo = new student.Pair(Card.NONE, Card.NONE);
+
     for(Card card : dealt) {
       hand.put(card, hand.get(card) + 1);
     }
@@ -103,7 +104,9 @@ public class Player implements model.Player {
   @Override
   public void startTurn(model.Pair dealt) {
     lastTwo = dealt;
-    routesClaimedThisTurn = 0;
+    hand.put(dealt.getFirstCard(), hand.get(dealt.getFirstCard()) + 1);
+    hand.put(dealt.getSecondCard(), hand.get(dealt.getSecondCard()) + 1);
+    hasClaimedRoute = false;
   }
 
   /**
@@ -157,7 +160,7 @@ public class Player implements model.Player {
   public boolean canClaimRoute(model.Route route) {
     int routeLength = route.getLength();
 
-    if(route.getBaron() != Baron.UNCLAIMED && routesClaimedThisTurn == 0) {
+    if(route.getBaron() != Baron.UNCLAIMED || hasClaimedRoute) {
       return false;
     }
 
@@ -192,7 +195,7 @@ public class Player implements model.Player {
       throw new RailroadBaronsException("Route can't be claimed!");
     }
 
-    else if(routesClaimedThisTurn > 0) {
+    else if(hasClaimedRoute) {
       throw new RailroadBaronsException("Already claimed a route this turn!");
     }
 
@@ -201,6 +204,7 @@ public class Player implements model.Player {
       routes.add(route);
       route.claim(baron);
       trainPieces -= length;
+      score+= route.getPointValue();
       boolean usingWild = false;
 
       Card cardToUse = Card.NONE;
@@ -212,7 +216,7 @@ public class Player implements model.Player {
         if (currCardAmount >= length && currCardAmount < currRightNumber) {
           currRightNumber = currCardAmount;
           cardToUse = card;
-          routesClaimedThisTurn++;
+          hasClaimedRoute = true;
         }
       }
 
@@ -224,7 +228,7 @@ public class Player implements model.Player {
             currRightNumber = currCardAmount;
             cardToUse = card;
             usingWild = true;
-            routesClaimedThisTurn++;
+            hasClaimedRoute = true;
           }
         }
       }
@@ -258,34 +262,6 @@ public class Player implements model.Player {
    */
   @Override
   public int getScore() {
-    score = 0;
-    for(model.Route route : routes) {
-      int length = route.getLength();
-
-      switch (length) {
-        case 1:
-          score++;
-          break;
-        case 2:
-          score += 2;
-          break;
-        case 3:
-          score += 4;
-          break;
-        case 4:
-          score += 7;
-          break;
-        case 5:
-          score += 10;
-          break;
-        case 6:
-          score += 15;
-          break;
-        default:
-          score += 5 * (length-3);
-
-      }
-    }
     return score;
   }
 
@@ -320,8 +296,8 @@ public class Player implements model.Player {
     return hand;
   }
 
-  public int getRoutesClaimedThisTurn() {
-    return routesClaimedThisTurn;
+  public boolean getRoutesClaimedThisTurn() {
+    return hasClaimedRoute;
   }
 
   public void setTrainPieces(int trainPieces) {
