@@ -266,5 +266,6 @@ public class PlayerTest {
 
     assertEquals("Shouldn't be able to claim when there aren't enough train pieces", false, player1.canContinuePlaying(5));
 
+
   }
 }
