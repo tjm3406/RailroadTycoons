@@ -5,8 +5,10 @@ import static org.junit.Assert.*;
 import java.io.FileInputStream;
 import model.Baron;
 import model.Card;
+import model.Orientation;
 import model.PlayerObserver;
 import model.RailroadBaronsException;
+import model.Route;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +60,7 @@ public class PlayerTest {
     player1.reset();
 
     assertEquals("Hand should be empty", 0, player1.getHand().size());
-    assertEquals("Expected 35 train pieces", 45, player1.getNumberOfPieces());
+    assertEquals("Expected 45 train pieces", 45, player1.getNumberOfPieces());
     assertEquals("Last two should be NONE", Card.NONE, player1.getLastTwoCards().getFirstCard());
     assertEquals("Last two should be NONE", Card.NONE, player1.getLastTwoCards().getSecondCard());
     assertEquals("No claimed routes", 0, player1.getClaimedRoutes().size());
@@ -98,14 +100,70 @@ public class PlayerTest {
 
   @Test
   public void countCardsInHand() {
+    System.out.println("Running countCardsInHand() test");
+    assertEquals("No Red cards in hand", 0, player1.countCardsInHand(Card.RED));
+    player1.getHand().put(Card.RED, 8);
+    assertEquals("8 Red cards in hand", 8, player1.countCardsInHand(Card.RED));
+    player1.getHand().put(Card.WILD, 4);
+    assertEquals("4 Wild cards in hand", 4, player1.countCardsInHand(Card.WILD));
   }
 
   @Test
   public void getNumberOfPieces() {
+    System.out.println("Running countCardsInHand() test");
+    player1.setTrainPieces(45);
+    assertEquals("Expected 5 train pieces", 45, player1.getNumberOfPieces());
+    player1.setTrainPieces(5);
+    assertEquals("Expected 5 train pieces", 5, player1.getNumberOfPieces());
+    player1.setTrainPieces(10);
+    assertEquals("Expected 5 train pieces", 10, player1.getNumberOfPieces());
   }
 
   @Test
   public void canClaimRoute() {
+    Route route1 = dummyRailroadMap.getRoute(2, 5);
+    Route route2 = dummyRailroadMap.getRoute(5, 2);
+
+    assertFalse("Enough train pieces but not enough cards", player1.canClaimRoute(route1));
+    assertFalse("Enough train pieces but not enough cards", player1.canClaimRoute(route2));
+
+    player1.getHand().put(Card.RED, route1.getLength());
+    player1.getHand().put(Card.BLUE, route2.getLength());
+    assertTrue("Should be able to claim", player1.canClaimRoute(route1));
+    assertTrue("Should be able to claim", player1.canClaimRoute(route2));
+    player1.reset();
+
+    player1.getHand().put(Card.RED, route1.getLength());
+    player1.getHand().put(Card.BLUE, route2.getLength());
+    player1.setTrainPieces(0);
+    assertFalse("Enough cards but not enough pieces", player1.canClaimRoute(route1));
+    assertFalse("Enough cards but not enough pieces", player1.canClaimRoute(route2));
+    player1.reset();
+
+    player1.getHand().put(Card.RED, route1.getLength()-1);
+    player1.getHand().put(Card.BLUE, route2.getLength()-1);
+    assertFalse("Enough train pieces but not enough cards", player1.canClaimRoute(route1));
+    assertFalse("Enough train pieces but not enough cards", player1.canClaimRoute(route2));
+    player1.reset();
+
+    player1.getHand().put(Card.RED, route1.getLength()-1);
+    player1.getHand().put(Card.BLUE, route2.getLength()-1);
+    player1.getHand().put(Card.WILD, 1);
+    assertTrue("Enough cards with 1 wild card", player1.canClaimRoute(route1));
+    assertTrue("Enough cards with 1 wild card", player1.canClaimRoute(route2));
+    player1.reset();
+
+    player1.getHand().put(Card.WILD, route1.getLength() + route2.getLength());
+    assertFalse("Cannot use only wildcards to claim a route", player1.canClaimRoute(route1));
+    assertFalse("Cannot use only wildcards to claim a route", player1.canClaimRoute(route2));
+    player1.reset();
+
+    model.Route length1Route = new student.Route(new Station("a",0, 0), new Station("b", 0, 2),
+        Orientation.HORIZONTAL);
+    player1.getHand().put(Card.WILD, 4);
+    assertFalse("Cannot use a wildcard to claim a length 1 route", player1.canClaimRoute(length1Route));
+
+
   }
 
   @Test
