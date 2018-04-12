@@ -86,14 +86,30 @@ public class PlayerTest {
 
   @Test
   public void getBaron() {
+    System.out.println("Running getBaron() test");
+
+    assertEquals("Get player 1", Baron.RED, player1.getBaron());
+    assertEquals("Get player 2", Baron.BLUE, player2.getBaron());
   }
 
   @Test
   public void startTurn() {
+    System.out.println("Running startTurn() test");
+    player1.getHand().put(Card.RED, 3);
+    player1.getHand().put(Card.WILD, 2);
+    player1.startTurn(dummyPair);
+
+    assertEquals("4 Red Cards Expected", new Integer(4), player1.getHand().get(Card.RED));
+    assertEquals("1 Blue Card Expected", new Integer(1), player1.getHand().get(Card.BLUE));
+
   }
 
   @Test
   public void getLastTwoCards() {
+    System.out.println("Running getLastTwoCard()");
+    player1.startTurn(dummyPair);
+
+    assertEquals("Pair of 1 red and 1 blue card Expected", dummyPair, player1.getLastTwoCards());
   }
 
   @Test

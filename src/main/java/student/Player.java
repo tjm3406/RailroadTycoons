@@ -161,18 +161,19 @@ public class Player implements model.Player {
     int routeLength = route.getLength();
 
 
-    boolean flag = false;
-
-    if((route.getBaron() != Baron.UNCLAIMED)|| hasClaimedRoute) {
+    if((route.getBaron() != Baron.UNCLAIMED)|| hasClaimedRoute || (route.getLength() > trainPieces)) {
       return false;
     }
 
     else {
-      for(int number : hand.values()) {
-        if(hand.get(Card.WILD) > 0 && (number + 1 >= routeLength)) {
+      for(Card card : hand.keySet()) {
+        if(card == Card.WILD) {
+          continue;
+        }
+        else if(hand.get(Card.WILD) > 0 && (hand.get(card) + 1 >= routeLength)) {
           return true;
         }
-        else if(number >= routeLength)
+        else if(hand.get(card) >= routeLength)
             return true;
       }
     }
