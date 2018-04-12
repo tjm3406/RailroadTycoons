@@ -136,6 +136,8 @@ public class PlayerTest {
     player1.getHand().put(Card.WILD, 4);
     player1.setTrainPieces(15);
     player1.claimRoute(dummyRailroadMap.getRoute(2,5));
+    //player1.claimRoute(dummyRailroadMap.getRoute());
+
 
   }
 
