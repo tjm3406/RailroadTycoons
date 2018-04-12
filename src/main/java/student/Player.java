@@ -162,7 +162,7 @@ public class Player implements model.Player {
 
     boolean flag = false;
 
-    if(route.getBaron() != Baron.UNCLAIMED || hasClaimedRoute) {
+    if((route.getBaron() != Baron.UNCLAIMED)|| hasClaimedRoute) {
       return false;
     }
 
