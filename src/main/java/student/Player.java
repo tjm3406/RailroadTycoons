@@ -172,7 +172,7 @@ public class Player implements model.Player {
         if(card == Card.WILD) {
           continue;
         }
-        else if(hand.get(Card.WILD) > 0 && (hand.get(card) + 1 >= routeLength)) {
+        else if(hand.get(Card.WILD) > 0 && (hand.get(card) + 1 >= routeLength) && !(hand.get(card) == 0)) {
           return true;
         }
         else if(hand.get(card) >= routeLength)
