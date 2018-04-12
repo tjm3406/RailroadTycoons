@@ -160,20 +160,22 @@ public class Player implements model.Player {
   public boolean canClaimRoute(model.Route route) {
     int routeLength = route.getLength();
 
+    boolean flag = false;
+
     if(route.getBaron() != Baron.UNCLAIMED || hasClaimedRoute) {
       return false;
     }
 
     else {
       for(int number : hand.values()) {
-        if(hand.containsKey(Card.WILD)) {
-          return number + 1 >= routeLength;
+        if(hand.get(Card.WILD) > 0) {
+          flag = number + 1 >= routeLength;
         }
         else
-          return number >= routeLength;
+          flag = number >= routeLength;
       }
     }
-    return false;
+    return flag;
   }
 
   /**
@@ -220,7 +222,7 @@ public class Player implements model.Player {
         }
       }
 
-      if (cardToUse == Card.NONE && hand.containsKey(Card.WILD)) {
+      if (cardToUse == Card.NONE && hand.get(Card.WILD) > 0) {
         for (Card card : hand.keySet()) {
           int currCardAmount = hand.get(card);
 
