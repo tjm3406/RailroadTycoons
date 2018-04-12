@@ -160,6 +160,7 @@ public class Player implements model.Player {
   public boolean canClaimRoute(model.Route route) {
     int routeLength = route.getLength();
 
+
     boolean flag = false;
 
     if((route.getBaron() != Baron.UNCLAIMED)|| hasClaimedRoute) {
@@ -168,14 +169,14 @@ public class Player implements model.Player {
 
     else {
       for(int number : hand.values()) {
-        if(hand.get(Card.WILD) > 0) {
-          flag = number + 1 >= routeLength;
+        if(hand.get(Card.WILD) > 0 && (number + 1 >= routeLength)) {
+          return true;
         }
-        else
-          flag = number >= routeLength;
+        else if(number >= routeLength)
+            return true;
       }
     }
-    return flag;
+    return false;
   }
 
   /**
