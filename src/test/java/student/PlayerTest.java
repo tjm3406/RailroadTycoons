@@ -208,22 +208,44 @@ public class PlayerTest {
   public void claimRoute() {
   }
 
-  @Test
-  public void getClaimedRoutes() throws RailroadBaronsException {
-    System.out.println("Running getClaimedRoutes");
-
-    player1.getHand().put(Card.RED, 8);
-    player1.getHand().put(Card.WILD, 4);
-    player1.setTrainPieces(15);
-    player1.claimRoute(dummyRailroadMap.getRoute(2,5));
-    //player1.claimRoute(dummyRailroadMap.getRoute());
-
-
-  }
-
-  @Test
-  public void getScore() {
-  }
+//  @Test
+//  public void getClaimedRoutes() throws RailroadBaronsException {
+//    System.out.println("Running getClaimedRoutes()");
+//    model.Route dummyRoute1 = dummyRailroadMap.getRoute(2,5);
+//    model.Route dummyRoute2 = dummyRailroadMap.getRoute(5,2);
+//
+//    player1.getHand().put(Card.RED, dummyRailroadMap.getRoute(2,5).getLength());
+//    player1.getHand().put(Card.BLUE, dummyRailroadMap.getRoute(5,2).getLength());
+//    player1.getHand().put(Card.WILD, 4);
+//    player1.setTrainPieces(30);
+//    player1.claimRoute(dummyRoute1);
+//    player1.claimRoute(dummyRoute2);
+//
+//    assertEquals("True expected, route 2,5 should be in set", true,
+//        player1.getClaimedRoutes().contains(dummyRoute1));
+//    assertEquals("True expected, route 5,2 should be in set", true,
+//        player1.getClaimedRoutes().contains(dummyRoute2));
+//
+//  }
+//
+//  @Test
+//  public void getScore() throws RailroadBaronsException {
+//    System.out.println("Running getScore()");
+//
+//    model.Route dummyRoute1 = dummyRailroadMap.getRoute(2,5);
+//    model.Route dummyRoute2 = dummyRailroadMap.getRoute(5,2);
+//
+//    player1.getHand().put(Card.RED, dummyRailroadMap.getRoute(2,5).getLength());
+//    player1.getHand().put(Card.BLUE, dummyRailroadMap.getRoute(5,2).getLength());
+//    player1.getHand().put(Card.WILD, 4);
+//    player1.setTrainPieces(30);
+//    player1.claimRoute(dummyRoute1);
+//    player1.claimRoute(dummyRoute2);
+//
+//    assertEquals("Score should be correct", dummyRoute1.getPointValue() + dummyRoute2.getPointValue(),
+//        player1.getScore());
+//
+//  }
 
   @Test
   public void canContinuePlaying() {
