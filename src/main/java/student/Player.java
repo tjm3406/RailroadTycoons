@@ -323,4 +323,8 @@ public class Player implements model.Player {
   public int getRoutesClaimedThisTurn() {
     return routesClaimedThisTurn;
   }
+
+  public void setTrainPieces(int trainPieces) {
+    this.trainPieces = trainPieces;
+  }
 }
