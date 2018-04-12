@@ -13,6 +13,11 @@ import model.Card;
 import model.PlayerObserver;
 import model.RailroadBaronsException;
 
+/**
+ * Concrete implementation of Player Interface
+ *
+ * @author PedroBreton
+ */
 public class Player implements model.Player {
 
   private int trainPieces;
@@ -24,17 +29,23 @@ public class Player implements model.Player {
   private Baron baron;
   private boolean hasClaimedRoute;
 
-
+  /**
+   * Construct an instance of the Payer class
+   *
+   * @param baron player's baron
+   */
   public Player(Baron baron) {
     this.baron = baron;
     hand = new HashMap<>();
-    for (Card card : Arrays.stream(Card.values()).filter(card -> !card.equals(Card.NONE) && !card.equals(Card.BACK)).collect(
-        Collectors.toList())) {
+    for (Card card : Arrays.stream(Card.values())
+        .filter(card -> !card.equals(Card.NONE) && !card.equals(Card.BACK)).collect(
+            Collectors.toList())) {
       hand.put(card, 0);
     }
     routes = new HashSet<>();
     observers = new ArrayList<>();
     score = 0;
+    hasClaimedRoute = false;
   }
 
   /**
@@ -50,14 +61,14 @@ public class Player implements model.Player {
   @Override
   public void reset(Card... dealt) {
     trainPieces = 45;
-    for(Card card : hand.keySet()) {
+    for (Card card : hand.keySet()) {
       hand.put(card, 0);
     }
     score = 0;
     routes.clear();
     lastTwo = new student.Pair(Card.NONE, Card.NONE);
 
-    for(Card card : dealt) {
+    for (Card card : dealt) {
       hand.put(card, hand.get(card) + 1);
     }
 
@@ -162,21 +173,19 @@ public class Player implements model.Player {
   public boolean canClaimRoute(model.Route route) {
     int routeLength = route.getLength();
 
-
-    if((route.getBaron() != Baron.UNCLAIMED)|| hasClaimedRoute || (route.getLength() > trainPieces)) {
+    if ((route.getBaron() != Baron.UNCLAIMED) || hasClaimedRoute || (route.getLength()
+        > trainPieces)) {
       return false;
-    }
-
-    else {
-      for(Card card : hand.keySet()) {
-        if(card == Card.WILD) {
+    } else {
+      for (Card card : hand.keySet()) {
+        if (card == Card.WILD) {
           continue;
-        }
-        else if(hand.get(Card.WILD) > 0 && (hand.get(card) + 1 >= routeLength) && !(hand.get(card) == 0)) {
+        } else if (hand.get(Card.WILD) > 0 && (hand.get(card) + 1 >= routeLength) && !(
+            hand.get(card) == 0)) {
+          return true;
+        } else if (hand.get(card) >= routeLength) {
           return true;
         }
-        else if(hand.get(card) >= routeLength)
-          return true;
       }
     }
     return false;
@@ -192,25 +201,21 @@ public class Player implements model.Player {
    * color in hand and it is the most numerous card that the player holds).</li> </ul>
    *
    * @param route The {@link Route} to claim.
-   * @throws RailroadBaronsException If the {@link Route} cannot be claimed, i.e. if the {@link
-   //* #canClaimRoute(Route)} method returns false.
+   * @throws RailroadBaronsException If the {@link Route} cannot be claimed, i.e. if the {@link //*
+   * #canClaimRoute(Route)} method returns false.
    */
   @Override
   public void claimRoute(model.Route route) throws RailroadBaronsException {
     if (!canClaimRoute(route)) {
       throw new RailroadBaronsException("Route can't be claimed!");
-    }
-
-    else if(hasClaimedRoute) {
+    } else if (hasClaimedRoute) {
       throw new RailroadBaronsException("Already claimed a route this turn!");
-    }
-
-    else {
+    } else {
       int length = route.getLength();
       routes.add(route);
       route.claim(baron);
       trainPieces -= length;
-      score+= route.getPointValue();
+      score += route.getPointValue();
       boolean usingWild = false;
 
       Card cardToUse = Card.NONE;
@@ -239,12 +244,12 @@ public class Player implements model.Player {
         }
       }
 
-      if(usingWild) {
+      if (usingWild) {
         hand.put(cardToUse, hand.get(cardToUse) - currRightNumber);
-        hand.put(Card.WILD, hand.get(cardToUse)-1);
+        hand.put(Card.WILD, hand.get(cardToUse) - 1);
+      } else {
+        hand.put(cardToUse, hand.get(cardToUse) - currRightNumber);
       }
-      else
-        hand.put(cardToUse, hand.get(cardToUse) - currRightNumber);
 
     }
   }
@@ -286,19 +291,21 @@ public class Player implements model.Player {
   public boolean canContinuePlaying(int shortestUnclaimedRoute) {
     boolean canContinue = false;
 
-    if(shortestUnclaimedRoute > trainPieces)
+    if (shortestUnclaimedRoute > trainPieces) {
       return false;
+    }
 
-    for(Card card : hand.keySet()) {
+    for (Card card : hand.keySet()) {
 
-      if(card == Card.WILD) {
+      if (card == Card.WILD) {
         continue;
       }
 
-      if(hand.get(Card.WILD) > 0 && hand.get(card) >= shortestUnclaimedRoute-1 && hand.get(card) != 0) {
+      if (hand.get(Card.WILD) > 0 && hand.get(card) >= shortestUnclaimedRoute - 1
+          && hand.get(card) != 0) {
         canContinue = true;
       }
-      if(hand.get(card) >= shortestUnclaimedRoute) {
+      if (hand.get(card) >= shortestUnclaimedRoute) {
         canContinue = true;
       }
     }
