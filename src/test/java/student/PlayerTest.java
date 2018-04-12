@@ -231,7 +231,7 @@ public class PlayerTest {
     assertTrue("Red should be the owner of the route", route1.getBaron().equals(player1.getBaron()));
 
     player1.reset();
-
+    player1.setHasClaimedRoute(false);
     player1.getHand().put(Card.BLUE, 3);
     assertFalse("Should not be able to claim", player1.canClaimRoute(route2));
 
@@ -247,7 +247,7 @@ public class PlayerTest {
     assertFalse("Player has not claimed a route this turn", player1.isHasClaimedRoute());
     assertEquals("Player has 0 points", 0, player1.getScore());
     assertEquals("Should have 3 blue cards",3,player1.getHand().get(Card.BLUE).intValue());
-    assertTrue("Route should be unclaimed", route1.getBaron().equals(Baron.UNCLAIMED));
+    assertTrue("Route should be unclaimed", route2.getBaron().equals(Baron.UNCLAIMED));
 
 
 
