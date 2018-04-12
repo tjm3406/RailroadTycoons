@@ -3,6 +3,9 @@ package student;
 import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 import model.Baron;
 import model.Card;
 import model.Orientation;
@@ -49,6 +52,7 @@ public class PlayerTest {
 
   }
 
+
   @Test
   public void reset() throws RailroadBaronsException {
     System.out.println("Running reset() test");
@@ -59,7 +63,12 @@ public class PlayerTest {
     player1.startTurn(dummyPair);
     player1.reset();
 
-    assertEquals("Hand should be empty", 0, player1.getHand().size());
+    HashMap<Card, Integer> hand = new HashMap<>();
+    for (Card card : Arrays.stream(Card.values()).filter(card -> !card.equals(Card.NONE) && !card.equals(Card.BACK)).collect(
+        Collectors.toList())) {
+      hand.put(card, 0);
+    }
+    assertEquals("Hand should be empty", hand, player1.getHand());
     assertEquals("Expected 45 train pieces", 45, player1.getNumberOfPieces());
     assertEquals("Last two should be NONE", Card.NONE, player1.getLastTwoCards().getFirstCard());
     assertEquals("Last two should be NONE", Card.NONE, player1.getLastTwoCards().getSecondCard());
@@ -179,6 +188,18 @@ public class PlayerTest {
         Orientation.HORIZONTAL);
     player1.getHand().put(Card.WILD, 4);
     assertFalse("Cannot use a wildcard to claim a length 1 route", player1.canClaimRoute(length1Route));
+    player1.reset();
+
+    route1.claim(player1.getBaron());
+    player1.getHand().put(Card.RED, route1.getLength());
+    assertFalse("Cannot claim claimed route", player1.canClaimRoute(route1));
+    player1.reset();
+
+    player1.setHasClaimedRoute(true);
+    assertFalse("Cannot claim more than one route per turn", player1.canClaimRoute(route1));
+
+
+
 
 
   }
