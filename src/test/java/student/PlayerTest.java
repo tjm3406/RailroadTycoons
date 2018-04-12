@@ -145,28 +145,28 @@ public class PlayerTest {
     assertFalse("Enough train pieces but not enough cards", player1.canClaimRoute(route2));
 
     player1.getHand().put(Card.RED, route1.getLength());
-    player1.getHand().put(Card.BLUE, route2.getLength());
     assertTrue("Should be able to claim", player1.canClaimRoute(route1));
+    player1.getHand().put(Card.BLUE, route2.getLength());
     assertTrue("Should be able to claim", player1.canClaimRoute(route2));
     player1.reset();
 
     player1.getHand().put(Card.RED, route1.getLength());
-    player1.getHand().put(Card.BLUE, route2.getLength());
     player1.setTrainPieces(0);
     assertFalse("Enough cards but not enough pieces", player1.canClaimRoute(route1));
+    player1.getHand().put(Card.BLUE, route2.getLength());
     assertFalse("Enough cards but not enough pieces", player1.canClaimRoute(route2));
     player1.reset();
 
     player1.getHand().put(Card.RED, route1.getLength()-1);
-    player1.getHand().put(Card.BLUE, route2.getLength()-1);
     assertFalse("Enough train pieces but not enough cards", player1.canClaimRoute(route1));
+    player1.getHand().put(Card.BLUE, route2.getLength()-1);
     assertFalse("Enough train pieces but not enough cards", player1.canClaimRoute(route2));
     player1.reset();
 
     player1.getHand().put(Card.RED, route1.getLength()-1);
-    player1.getHand().put(Card.BLUE, route2.getLength()-1);
     player1.getHand().put(Card.WILD, 1);
     assertTrue("Enough cards with 1 wild card", player1.canClaimRoute(route1));
+    player1.getHand().put(Card.BLUE, route2.getLength()-1);
     assertTrue("Enough cards with 1 wild card", player1.canClaimRoute(route2));
     player1.reset();
 
