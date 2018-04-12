@@ -184,7 +184,7 @@ public class Route implements model.Route {
    */
   @Override
   public boolean claim(Baron claimant) {
-    if (baron == Baron.UNCLAIMED) {
+    if (baron.equals(Baron.UNCLAIMED)) {
       baron = claimant;
       return true;
     }

@@ -24,7 +24,7 @@ public class PlayerTest {
     MapMaker mapMaker = new MapMaker();
 
     FileInputStream inputStream = new FileInputStream("maps/simple.rbmap");
-    model.RailroadMap dummyRailroadMap = mapMaker.readMap(inputStream);
+    dummyRailroadMap = mapMaker.readMap(inputStream);
     inputStream.close();
 
   }
@@ -41,15 +41,15 @@ public class PlayerTest {
   @Test
   public void reset() throws RailroadBaronsException {
     System.out.println("Running reset() test");
-    player1.getHand().put(Card.RED, 4);
+    player1.getHand().put(Card.RED, 8);
     player1.getHand().put(Card.WILD, 4);
-    player1.setTrainPieces(0);
-    player1.claimRoute(dummyRailroadMap.getRoute(2,3));
+    player1.setTrainPieces(15);
+    player1.claimRoute(dummyRailroadMap.getRoute(2,5));
     player1.startTurn(dummyPair);
     player1.reset();
 
     assertEquals("Hand should be empty", 0, player1.getHand().size());
-    assertEquals("Expected 35 train pieces", 35, player1.getNumberOfPieces());
+    assertEquals("Expected 35 train pieces", 45, player1.getNumberOfPieces());
     assertEquals("Last two should be NONE", Card.NONE, player1.getLastTwoCards().getFirstCard());
     assertEquals("Last two should be NONE", Card.NONE, player1.getLastTwoCards().getSecondCard());
     assertEquals("No claimed routes", 0, player1.getClaimedRoutes().size());
