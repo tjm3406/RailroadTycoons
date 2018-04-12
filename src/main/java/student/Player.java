@@ -203,6 +203,7 @@ public class Player implements model.Player {
       routes.add(route);
       route.claim(baron);
       trainPieces -= length;
+      score+= route.getPointValue();
       boolean usingWild = false;
 
       Card cardToUse = Card.NONE;
