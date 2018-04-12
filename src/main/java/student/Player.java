@@ -2,10 +2,12 @@ package student;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 import model.Baron;
 import model.Card;
 import model.PlayerObserver;
@@ -26,6 +28,10 @@ public class Player implements model.Player {
   public Player(Baron baron) {
     this.baron = baron;
     hand = new HashMap<>();
+    for (Card card : Arrays.stream(Card.values()).filter(card -> !card.equals(Card.NONE) && !card.equals(Card.BACK)).collect(
+        Collectors.toList())) {
+      hand.put(card, 0);
+    }
     routes = new HashSet<>();
     observers = new ArrayList<>();
     score = 0;
@@ -48,6 +54,9 @@ public class Player implements model.Player {
     score = 0;
     routes.clear();
     lastTwo = new student.Pair(Card.NONE, Card.NONE);
+    for(Card card : dealt) {
+      hand.put(card, hand.get(card) + 1);
+    }
 
   }
 
