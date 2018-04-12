@@ -140,7 +140,7 @@ public class Route implements model.Route {
         break;
 
       default:
-        points = (getLength() - 3) * 2;
+        points = (getLength() - 3) * 5;
         break;
     }
 

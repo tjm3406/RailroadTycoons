@@ -72,6 +72,7 @@ public class RouteTest {
   public void getPointValue() {
     System.out.println("Running getPointValue() test");
     assertEquals("Wrong points", 1, dummyRoute1.getPointValue());
+
   }
 
   @Test
