@@ -315,4 +315,12 @@ public class Player implements model.Player {
 
     return canContinue;
   }
+
+  public HashMap<Card, Integer> getHand() {
+    return hand;
+  }
+
+  public int getRoutesClaimedThisTurn() {
+    return routesClaimedThisTurn;
+  }
 }
