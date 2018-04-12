@@ -176,7 +176,7 @@ public class Player implements model.Player {
           return true;
         }
         else if(hand.get(card) >= routeLength)
-            return true;
+          return true;
       }
     }
     return false;
@@ -286,11 +286,19 @@ public class Player implements model.Player {
   public boolean canContinuePlaying(int shortestUnclaimedRoute) {
     boolean canContinue = false;
 
-    for(int number : hand.values()) {
-      if(hand.containsKey(Card.WILD) && number >= shortestUnclaimedRoute-1) {
+    if(shortestUnclaimedRoute > trainPieces)
+      return false;
+
+    for(Card card : hand.keySet()) {
+
+      if(card == Card.WILD) {
+        continue;
+      }
+
+      if(hand.get(Card.WILD) > 0 && hand.get(card) >= shortestUnclaimedRoute-1 && hand.get(card) != 0) {
         canContinue = true;
       }
-      else if(number >= shortestUnclaimedRoute) {
+      if(hand.get(card) >= shortestUnclaimedRoute) {
         canContinue = true;
       }
     }

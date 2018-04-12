@@ -300,5 +300,23 @@ public class PlayerTest {
 
   @Test
   public void canContinuePlaying() {
+    player1.getHand().put(Card.WILD, 4);
+    player1.setTrainPieces(30);
+
+    assertEquals("Shouldn't be able to claim with only wild.", false, player1.canContinuePlaying(1) );
+
+    player1.getHand().put(Card.RED, 5);
+    player1.getHand().put(Card.BLUE, 2);
+
+    assertEquals("Should be able to claim of length 5", true, player1.canContinuePlaying(5));
+    assertEquals("Should be able to claim of length one more than highest due to wild card", true, player1.canContinuePlaying(6));
+    assertEquals("Shouldn't be able to claim length of two more", false, player1.canContinuePlaying(7));
+    assertEquals("Should be able to claim of length 1", true, player1.canContinuePlaying(1));
+
+    player1.setTrainPieces(3);
+
+    assertEquals("Shouldn't be able to claim when there aren't enough train pieces", false, player1.canContinuePlaying(5));
+
+
   }
 }
