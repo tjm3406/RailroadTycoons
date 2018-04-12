@@ -313,4 +313,12 @@ public class Player implements model.Player {
   public ArrayList<PlayerObserver> getObservers() {
     return observers;
   }
+
+  public boolean isHasClaimedRoute() {
+    return hasClaimedRoute;
+  }
+
+  public void setHasClaimedRoute(boolean hasClaimedRoute) {
+    this.hasClaimedRoute = hasClaimedRoute;
+  }
 }
