@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.FileInputStream;
 import model.Baron;
 import model.Card;
+import model.PlayerObserver;
 import model.RailroadBaronsException;
 import org.junit.After;
 import org.junit.Before;
@@ -15,6 +16,7 @@ public class PlayerTest {
   private Player player2;
   private model.Pair dummyPair;
   private model.RailroadMap dummyRailroadMap;
+  private PlayerObserver fakeObserver;
 
   @Before
   public void setUp() throws Exception {
@@ -26,6 +28,13 @@ public class PlayerTest {
     FileInputStream inputStream = new FileInputStream("maps/simple.rbmap");
     dummyRailroadMap = mapMaker.readMap(inputStream);
     inputStream.close();
+
+    fakeObserver = new PlayerObserver() {
+      @Override
+      public void playerChanged(model.Player player) {
+
+      }
+    };
 
   }
 
@@ -58,10 +67,21 @@ public class PlayerTest {
 
   @Test
   public void addPlayerObserver() {
+    System.out.println("Running addObserver() test");
+    assertTrue("No observers yet", player1.getObservers().isEmpty());
+
+    player1.addPlayerObserver(fakeObserver);
+    assertEquals("One observer present", 1, player1.getObservers().size());
   }
 
   @Test
   public void removePlayerObserver() {
+    System.out.println("Running removeObserver() test");
+
+    player1.addPlayerObserver(fakeObserver);
+    assertEquals("One observer present", 1, player1.getObservers().size());
+    player1.removePlayerObserver(fakeObserver);
+    assertFalse("Observer removed", player1.getObservers().contains(fakeObserver));
   }
 
   @Test

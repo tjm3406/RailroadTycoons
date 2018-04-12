@@ -306,4 +306,8 @@ public class Player implements model.Player {
   public void setTrainPieces(int trainPieces) {
     this.trainPieces = trainPieces;
   }
+
+  public ArrayList<PlayerObserver> getObservers() {
+    return observers;
+  }
 }
