@@ -50,7 +50,9 @@ public class Player implements model.Player {
   @Override
   public void reset(Card... dealt) {
     trainPieces = 45;
-    hand.clear();
+    for(Card card : hand.keySet()) {
+      hand.put(card, 0);
+    }
     score = 0;
     routes.clear();
     lastTwo = new student.Pair(Card.NONE, Card.NONE);
