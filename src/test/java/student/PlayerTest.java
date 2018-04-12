@@ -101,8 +101,8 @@ public class PlayerTest {
     player1.getHand().put(Card.WILD, 2);
     player1.startTurn(dummyPair);
 
-    assertEquals("4 Red Cards Expected", new Integer(4), player1.getHand().get(Card.RED));
-    assertEquals("1 Blue Card Expected", new Integer(1), player1.getHand().get(Card.BLUE));
+    assertEquals("4 Red Cards Expected", 4, player1.countCardsInHand(Card.RED));
+    assertEquals("1 Blue Card Expected", 1, player1.countCardsInHand(Card.BLUE));
 
   }
 
@@ -140,6 +140,7 @@ public class PlayerTest {
     Route route1 = dummyRailroadMap.getRoute(2, 5);
     Route route2 = dummyRailroadMap.getRoute(5, 2);
 
+    player1.reset();
     assertFalse("Enough train pieces but not enough cards", player1.canClaimRoute(route1));
     assertFalse("Enough train pieces but not enough cards", player1.canClaimRoute(route2));
 
