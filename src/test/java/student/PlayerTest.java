@@ -188,7 +188,14 @@ public class PlayerTest {
   }
 
   @Test
-  public void getClaimedRoutes() {
+  public void getClaimedRoutes() throws RailroadBaronsException {
+    System.out.println("Running getClaimedRoutes");
+
+    player1.getHand().put(Card.RED, 8);
+    player1.getHand().put(Card.WILD, 4);
+    player1.setTrainPieces(15);
+    player1.claimRoute(dummyRailroadMap.getRoute(2,5));
+
   }
 
   @Test
