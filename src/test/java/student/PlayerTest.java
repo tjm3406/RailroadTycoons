@@ -3,6 +3,7 @@ package student;
 import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Collectors;
@@ -14,7 +15,9 @@ import model.RailroadBaronsException;
 import model.Route;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class PlayerTest {
   private Player player1;
@@ -22,6 +25,9 @@ public class PlayerTest {
   private model.Pair dummyPair;
   private model.RailroadMap dummyRailroadMap;
   private PlayerObserver fakeObserver;
+
+  @Rule
+  public ExpectedException exceptions = ExpectedException.none();
 
   @Before
   public void setUp() throws Exception {
@@ -146,6 +152,7 @@ public class PlayerTest {
 
   @Test
   public void canClaimRoute() {
+    System.out.println("Running canClaimRoute() test");
     Route route1 = dummyRailroadMap.getRoute(2, 5);
     Route route2 = dummyRailroadMap.getRoute(5, 2);
 
@@ -205,47 +212,91 @@ public class PlayerTest {
   }
 
   @Test
-  public void claimRoute() {
+  public void claimRoute() throws RailroadBaronsException {
+    System.out.println("Running claimRouteTest()");
+
+    Route route1 = dummyRailroadMap.getRoute(2, 5);
+    Route route2 = dummyRailroadMap.getRoute(5, 2);
+
+    player1.reset();
+    player1.getHand().put(Card.RED, route1.getLength());
+    assertTrue("Should be able to claim", player1.canClaimRoute(route1));
+    player1.claimRoute(route1);
+
+    assertTrue("Route1 should appear on claimed routes", player1.getClaimedRoutes().contains(route1));
+    assertEquals("There should only be 38 train pieces", 38, player1.getNumberOfPieces());
+    assertTrue("Player has claimed a route this turn", player1.isHasClaimedRoute());
+    assertEquals("Player has 20 points", 20, player1.getScore());
+    assertEquals("Should have 0 red cards",0,player1.getHand().get(Card.RED).intValue());
+    assertTrue("Red should be the owner of the route", route1.getBaron().equals(player1.getBaron()));
+
+    player1.reset();
+
+    player1.getHand().put(Card.BLUE, 3);
+    assertFalse("Should not be able to claim", player1.canClaimRoute(route2));
+
+    try {
+      player1.claimRoute(route2);
+      throw new AssertionError("Expected exception");
+    } catch (Exception e){
+      assertTrue(e instanceof RailroadBaronsException);
+    }
+
+    assertFalse("Route2 should not on claimed routes", player1.getClaimedRoutes().contains(route1));
+    assertEquals("There should only be 45 train pieces", 45, player1.getNumberOfPieces());
+    assertFalse("Player has not claimed a route this turn", player1.isHasClaimedRoute());
+    assertEquals("Player has 0 points", 0, player1.getScore());
+    assertEquals("Should have 3 blue cards",3,player1.getHand().get(Card.BLUE).intValue());
+    assertTrue("Route should be unclaimed", route1.getBaron().equals(Baron.UNCLAIMED));
+
+
+
   }
 
-//  @Test
-//  public void getClaimedRoutes() throws RailroadBaronsException {
-//    System.out.println("Running getClaimedRoutes()");
-//    model.Route dummyRoute1 = dummyRailroadMap.getRoute(2,5);
-//    model.Route dummyRoute2 = dummyRailroadMap.getRoute(5,2);
-//
-//    player1.getHand().put(Card.RED, dummyRailroadMap.getRoute(2,5).getLength());
-//    player1.getHand().put(Card.BLUE, dummyRailroadMap.getRoute(5,2).getLength());
-//    player1.getHand().put(Card.WILD, 4);
-//    player1.setTrainPieces(30);
-//    player1.claimRoute(dummyRoute1);
-//    player1.claimRoute(dummyRoute2);
-//
-//    assertEquals("True expected, route 2,5 should be in set", true,
-//        player1.getClaimedRoutes().contains(dummyRoute1));
-//    assertEquals("True expected, route 5,2 should be in set", true,
-//        player1.getClaimedRoutes().contains(dummyRoute2));
-//
-//  }
-//
-//  @Test
-//  public void getScore() throws RailroadBaronsException {
-//    System.out.println("Running getScore()");
-//
-//    model.Route dummyRoute1 = dummyRailroadMap.getRoute(2,5);
-//    model.Route dummyRoute2 = dummyRailroadMap.getRoute(5,2);
-//
-//    player1.getHand().put(Card.RED, dummyRailroadMap.getRoute(2,5).getLength());
-//    player1.getHand().put(Card.BLUE, dummyRailroadMap.getRoute(5,2).getLength());
-//    player1.getHand().put(Card.WILD, 4);
-//    player1.setTrainPieces(30);
-//    player1.claimRoute(dummyRoute1);
-//    player1.claimRoute(dummyRoute2);
-//
-//    assertEquals("Score should be correct", dummyRoute1.getPointValue() + dummyRoute2.getPointValue(),
-//        player1.getScore());
-//
-//  }
+  @Test
+  public void getClaimedRoutes() throws RailroadBaronsException {
+    System.out.println("Running getClaimedRoutes()");
+    model.Route dummyRoute1 = dummyRailroadMap.getRoute(2,5);
+    model.Route dummyRoute2 = dummyRailroadMap.getRoute(5,2);
+
+    player1.reset();
+    player2.reset();
+    player1.getHand().put(Card.RED, dummyRoute1.getLength());
+    player2.getHand().put(Card.BLUE, dummyRoute2.getLength());
+    player1.getHand().put(Card.WILD, 4);
+    player1.claimRoute(dummyRoute1);
+    player2.claimRoute(dummyRoute2);
+
+    assertEquals("True expected, route 2,5 should be in set", true,
+        player1.getClaimedRoutes().contains(dummyRoute1));
+    assertEquals("True expected, route 5,2 should be in set", true,
+        player2.getClaimedRoutes().contains(dummyRoute2));
+
+  }
+
+  @Test
+  public void getScore() throws RailroadBaronsException {
+    System.out.println("Running getScore() test");
+
+    model.Route dummyRoute1 = dummyRailroadMap.getRoute(2,5);
+    model.Route dummyRoute2 = dummyRailroadMap.getRoute(5,2);
+
+    player1.reset();
+
+    player1.getHand().put(Card.RED, dummyRoute1.getLength());
+    player1.getHand().put(Card.BLUE, dummyRoute2.getLength());
+    player1.getHand().put(Card.WILD, 4);
+    player1.claimRoute(dummyRoute1);
+
+
+    assertEquals("Score should be 20", 20,
+        player1.getScore());
+    player1.setHasClaimedRoute(false);
+    player1.claimRoute(dummyRoute2);
+    assertEquals("Score should be 50", 50,
+        player1.getScore());
+
+  }
 
   @Test
   public void canContinuePlaying() {
