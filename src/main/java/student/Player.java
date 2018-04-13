@@ -336,4 +336,9 @@ public class Player implements model.Player {
   public void setHasClaimedRoute(boolean hasClaimedRoute) {
     this.hasClaimedRoute = hasClaimedRoute;
   }
+
+  @Override
+  public String toString(){
+    return getBaron().toString();
+  }
 }
