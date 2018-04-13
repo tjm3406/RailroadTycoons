@@ -16,6 +16,7 @@ public class RailroadBarons implements model.RailroadBarons {
 
   public RailroadBarons() {
     this.observers = new ArrayList<>();
+    this.players = new ArrayList<>();
 
   }
 
