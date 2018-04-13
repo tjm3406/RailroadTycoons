@@ -1,10 +1,18 @@
 package student;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import model.Card;
 import model.RailroadBaronsException;
 import model.RailroadBaronsObserver;
 
 public class RailroadBarons implements model.RailroadBarons {
+  private ArrayList<RailroadBaronsObserver> observers;
+  private model.RailroadMap railroadMap;
+
+  public RailroadBarons() {
+    this.observers = new ArrayList<>();
+  }
 
   /**
    * Adds a new {@linkplain RailroadBaronsObserver observer} to the {@linkplain Collection
@@ -17,6 +25,7 @@ public class RailroadBarons implements model.RailroadBarons {
    */
   @Override
   public void addRailroadBaronsObserver(RailroadBaronsObserver observer) {
+    observers.add(observer);
 
   }
 
@@ -28,6 +37,7 @@ public class RailroadBarons implements model.RailroadBarons {
    */
   @Override
   public void removeRailroadBaronsObserver(RailroadBaronsObserver observer) {
+    observers.remove(observer);
 
   }
 
@@ -44,6 +54,7 @@ public class RailroadBarons implements model.RailroadBarons {
    */
   @Override
   public void startAGameWith(model.RailroadMap map) {
+    railroadMap = map;
 
   }
 
@@ -51,8 +62,7 @@ public class RailroadBarons implements model.RailroadBarons {
    * Starts a new {@linkplain RailroadBarons Railroad Barons} game with the specified {@linkplain
    * RailroadMap map} and {@linkplain Deck deck of cards}. This means that the game should work with
    * any implementation of the {@link Deck} interface (not just a specific implementation)!
-   * Otherwise, the starting state of the game is the same as a {@linkplain
-   * #startAGameWith(RailroadMap) normal game}.
+   * Otherwise, the starting state of the game is the same as a {startAGameWIth normal map)
    *
    * @param map The {@link RailroadMap} on which the game will be played.
    * @param deck The {@link Deck} of cards used to play the game. This may be ANY implementation of
@@ -89,7 +99,7 @@ public class RailroadBarons implements model.RailroadBarons {
   /**
    * Returns true iff the current {@linkplain Player player} can claim the {@linkplain Route route}
    * at the specified location, i.e. the player has enough cards and pieces, and the route is not
-   * currently claimed by another player. Should delegate to the {@link Player#canClaimRoute(Route)}
+   * currently claimed by another player. Should delegate to the
    * method on the current player.
    *
    * @param row The row of a {@link Track} in the {@link Route} to check.
