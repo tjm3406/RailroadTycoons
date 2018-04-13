@@ -18,6 +18,12 @@ public class RailroadBarons implements model.RailroadBarons {
     deck = new Deck();
   }
 
+  private ArrayList<RailroadBaronsObserver> observers;
+
+  public RailroadBarons() {
+
+  }
+
   /**
    * Adds a new {@linkplain RailroadBaronsObserver observer} to the {@linkplain Collection
    * collection} of observers that will be notified when the state of the game changes. Game state
@@ -103,6 +109,7 @@ public class RailroadBarons implements model.RailroadBarons {
    *
    * @return The number of cards that have not yet been dealt in the game's {@link Deck}.
    */
+  //
   @Override
   public int numberOfCardsRemaining() {
     return 0;
