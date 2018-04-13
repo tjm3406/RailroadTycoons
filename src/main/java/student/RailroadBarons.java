@@ -136,6 +136,8 @@ public class RailroadBarons implements model.RailroadBarons {
    */
   @Override
   public void claimRoute(int row, int col) throws RailroadBaronsException {
+    model.Route currRoute = railroadMap.getRoute(row,col);
+    players.get(currentPlayer).claimRoute(currRoute);
 
   }
 
@@ -144,6 +146,13 @@ public class RailroadBarons implements model.RailroadBarons {
    */
   @Override
   public void endTurn() {
+    for(RailroadBaronsObserver observer : observers) {
+      observer.turnEnded(this, players.get(currentPlayer));
+    }
+    currentPlayer++;
+    for(RailroadBaronsObserver observer : observers) {
+      observer.turnEnded(this, players.get(currentPlayer));
+    }
 
   }
 
