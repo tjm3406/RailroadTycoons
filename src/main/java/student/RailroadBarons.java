@@ -1,10 +1,17 @@
 package student;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import model.RailroadBaronsException;
 import model.RailroadBaronsObserver;
 
 public class RailroadBarons implements model.RailroadBarons {
+
+  private ArrayList<RailroadBaronsObserver> observers;
+
+  public RailroadBarons() {
+
+  }
 
   /**
    * Adds a new {@linkplain RailroadBaronsObserver observer} to the {@linkplain Collection
