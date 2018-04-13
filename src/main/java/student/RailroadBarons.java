@@ -2,6 +2,7 @@ package student;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import model.Baron;
 import model.Card;
 import model.RailroadBaronsException;
 import model.RailroadBaronsObserver;
@@ -9,15 +10,12 @@ import model.RailroadBaronsObserver;
 public class RailroadBarons implements model.RailroadBarons {
   private ArrayList<RailroadBaronsObserver> observers;
   private model.RailroadMap railroadMap;
+  private model.Deck deck;
+  private ArrayList<model.Player> players;
 
   public RailroadBarons() {
     this.observers = new ArrayList<>();
-  }
-
-  private ArrayList<RailroadBaronsObserver> observers;
-
-  public RailroadBarons() {
-
+    deck = new Deck();
   }
 
   /**
@@ -53,7 +51,7 @@ public class RailroadBarons implements model.RailroadBarons {
    * progress, the progress is lost. There is no warning!
    *
    * By default, a new game begins with: <ul> <li>A default deck that contains 20 of each color of
-   * card and 20 wild cards.</li> <li>4 players, each of which has 50 train pieces.</li> <li>An
+   * card and 20 wild cards.</li> <li>4 players, each of which has 45 train pieces.</li> <li>An
    * initial hand of 4 cards dealt from the deck to each player</li> </ul>
    *
    * @param map The {@link RailroadMap} on which the game will be played.
@@ -61,6 +59,14 @@ public class RailroadBarons implements model.RailroadBarons {
   @Override
   public void startAGameWith(model.RailroadMap map) {
     railroadMap = map;
+    deck.reset();
+    model.Player player1 = new Player(Baron.RED);
+    model.Player player2 = new Player(Baron.BLUE);
+    model.Player player3 = new Player(Baron.GREEN);
+    model.Player player4 = new Player(Baron.YELLOW);
+    players.add(player1);
+
+
 
   }
 
