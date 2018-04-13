@@ -176,7 +176,9 @@ public class RailroadBarons implements model.RailroadBarons {
     for(RailroadBaronsObserver observer : observers) {
       observer.turnEnded(this, players.get(currentPlayer));
     }
-    currentPlayer++;
+
+    currentPlayer = (currentPlayer + 1) %4;
+
     for(RailroadBaronsObserver observer : observers) {
       observer.turnEnded(this, players.get(currentPlayer));
     }
