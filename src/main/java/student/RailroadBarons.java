@@ -185,6 +185,16 @@ public class RailroadBarons implements model.RailroadBarons {
    */
   @Override
   public boolean gameIsOver() {
-    return false;
+    int shortestRoute = railroadMap.getLengthOfShortestUnclaimedRoute();
+    if(shortestRoute == 0) {
+      return true;
+    }
+
+    for(model.Player player : players) {
+      if(player.canContinuePlaying(shortestRoute)) {
+        return false;
+      }
+    }
+    return true;
   }
 }
