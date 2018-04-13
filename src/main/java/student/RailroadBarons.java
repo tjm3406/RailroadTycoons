@@ -16,7 +16,7 @@ public class RailroadBarons implements model.RailroadBarons {
 
   public RailroadBarons() {
     this.observers = new ArrayList<>();
-    deck = new Deck();
+
   }
 
   /**
@@ -60,12 +60,22 @@ public class RailroadBarons implements model.RailroadBarons {
   @Override
   public void startAGameWith(model.RailroadMap map) {
     railroadMap = map;
+    deck = new Deck();
+
     deck.reset();
+
     model.Player player1 = new Player(Baron.RED);
     model.Player player2 = new Player(Baron.BLUE);
     model.Player player3 = new Player(Baron.GREEN);
     model.Player player4 = new Player(Baron.YELLOW);
     players.add(player1);
+    players.add(player2);
+    players.add(player3);
+    players.add(player4);
+
+    for (model.Player player : players){
+      player.reset(deck.drawACard(),deck.drawACard(),deck.drawACard(),deck.drawACard());
+    }
 
 
 
@@ -84,7 +94,23 @@ public class RailroadBarons implements model.RailroadBarons {
    */
   @Override
   public void startAGameWith(model.RailroadMap map, model.Deck deck) {
+    railroadMap = map;
+    this.deck = deck;
 
+    deck.reset();
+
+    model.Player player1 = new Player(Baron.RED);
+    model.Player player2 = new Player(Baron.BLUE);
+    model.Player player3 = new Player(Baron.GREEN);
+    model.Player player4 = new Player(Baron.YELLOW);
+    players.add(player1);
+    players.add(player2);
+    players.add(player3);
+    players.add(player4);
+
+    for (model.Player player : players){
+      player.reset(deck.drawACard(),deck.drawACard(),deck.drawACard(),deck.drawACard());
+    }
   }
 
   /**
