@@ -163,7 +163,7 @@ public class RailroadBarons implements model.RailroadBarons {
    */
   @Override
   public model.Player getCurrentPlayer() {
-    return null;
+    return players.get(currentPlayer);
   }
 
   /**
