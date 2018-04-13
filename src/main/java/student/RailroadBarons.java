@@ -244,7 +244,7 @@ public class RailroadBarons implements model.RailroadBarons {
     }
 
     for(model.Player player : players) {
-      if(player.canContinuePlaying(shortestRoute)) {
+      if(player.canContinuePlaying(shortestRoute-deck.numberOfCardsRemaining())) {
         return false;
       }
     }
