@@ -88,7 +88,7 @@ public class RailroadBarons implements model.RailroadBarons {
    */
   @Override
   public model.RailroadMap getRailroadMap() {
-    return null;
+    return railroadMap;
   }
 
   /**
