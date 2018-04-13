@@ -72,6 +72,10 @@ public class Player implements model.Player {
       hand.put(card, hand.get(card) + 1);
     }
 
+    for (PlayerObserver observer: observers){
+      observer.playerChanged(this);
+    }
+
   }
 
   /**
@@ -120,6 +124,9 @@ public class Player implements model.Player {
     hand.put(dealt.getFirstCard(), hand.get(dealt.getFirstCard()) + 1);
     hand.put(dealt.getSecondCard(), hand.get(dealt.getSecondCard()) + 1);
     hasClaimedRoute = false;
+    for (PlayerObserver observer: observers){
+      observer.playerChanged(this);
+    }
   }
 
   /**
@@ -216,6 +223,9 @@ public class Player implements model.Player {
       route.claim(baron);
       trainPieces -= length;
       score += route.getPointValue();
+      for (PlayerObserver observer: observers){
+        observer.playerChanged(this);
+      }
       boolean usingWild = false;
 
       Card cardToUse = Card.NONE;
@@ -249,6 +259,10 @@ public class Player implements model.Player {
         hand.put(Card.WILD, hand.get(cardToUse) - 1);
       } else {
         hand.put(cardToUse, hand.get(cardToUse) - currRightNumber);
+      }
+
+      for (PlayerObserver observer: observers){
+        observer.playerChanged(this);
       }
 
     }

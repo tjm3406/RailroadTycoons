@@ -31,7 +31,7 @@ public class DeckTest {
     System.out.println("Running reset() test");
     dummyDeck.drawACard();
     dummyDeck.reset();
-    assertNotEquals("Deck was shuffled", 180, dummyDeck.numberOfCardsRemaining());
+    assertEquals("Deck was shuffled", 180, dummyDeck.numberOfCardsRemaining());
   }
 
   @Test

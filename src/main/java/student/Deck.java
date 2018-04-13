@@ -29,6 +29,7 @@ public class Deck implements model.Deck {
    */
   @Override
   public void reset() {
+    deck.clear();
     for (Card card : Arrays.stream(Card.values()).filter(card -> !card.equals(Card.NONE) && !card.equals(Card.BACK)).collect(
         Collectors.toList())) {
       for (int i = 0; i < 20; i++) {

@@ -19,6 +19,14 @@ public class RailroadBarons implements model.RailroadBarons {
   public RailroadBarons() {
     this.observers = new ArrayList<>();
     this.players = new ArrayList<>();
+    model.Player player1 = new Player(Baron.RED);
+    model.Player player2 = new Player(Baron.BLUE);
+    model.Player player3 = new Player(Baron.GREEN);
+    model.Player player4 = new Player(Baron.YELLOW);
+    players.add(player1);
+    players.add(player2);
+    players.add(player3);
+    players.add(player4);
 
 
   }
@@ -70,22 +78,15 @@ public class RailroadBarons implements model.RailroadBarons {
 
     deck.reset();
 
-    model.Player player1 = new Player(Baron.RED);
-    model.Player player2 = new Player(Baron.BLUE);
-    model.Player player3 = new Player(Baron.GREEN);
-    model.Player player4 = new Player(Baron.YELLOW);
-    players.add(player1);
-    players.add(player2);
-    players.add(player3);
-    players.add(player4);
+
 
     for (model.Player player : players){
       player.reset(deck.drawACard(),deck.drawACard(),deck.drawACard(),deck.drawACard());
     }
 
-    player1.startTurn(new Pair(deck.drawACard(), deck.drawACard()));
+    players.get(currentPlayer).startTurn(new Pair(deck.drawACard(), deck.drawACard()));
     for (model.RailroadBaronsObserver observer : observers){
-      observer.turnStarted(this, player1);
+      observer.turnStarted(this, players.get(currentPlayer));
     }
 
 
@@ -110,22 +111,14 @@ public class RailroadBarons implements model.RailroadBarons {
     model.RailroadBarons railroadBarons = new RailroadBarons();
     deck.reset();
 
-    model.Player player1 = new Player(Baron.RED);
-    model.Player player2 = new Player(Baron.BLUE);
-    model.Player player3 = new Player(Baron.GREEN);
-    model.Player player4 = new Player(Baron.YELLOW);
-    players.add(player1);
-    players.add(player2);
-    players.add(player3);
-    players.add(player4);
 
     for (model.Player player : players){
       player.reset(deck.drawACard(),deck.drawACard(),deck.drawACard(),deck.drawACard());
     }
 
-    player1.startTurn(new Pair(deck.drawACard(), deck.drawACard()));
+    players.get(currentPlayer).startTurn(new Pair(deck.drawACard(), deck.drawACard()));
     for (model.RailroadBaronsObserver observer : observers){
-      observer.turnStarted(this, player1);
+      observer.turnStarted(this, players.get(currentPlayer));
     }
   }
 
@@ -181,6 +174,7 @@ public class RailroadBarons implements model.RailroadBarons {
     model.Route currRoute = railroadMap.getRoute(row,col);
     players.get(currentPlayer).claimRoute(currRoute);
     railroadMap.routeClaimed(currRoute);
+
 
   }
 
