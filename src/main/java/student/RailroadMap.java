@@ -162,7 +162,11 @@ public class RailroadMap implements model.RailroadMap {
    */
   @Override
   public int getLengthOfShortestUnclaimedRoute() {
-    return unclaimedRoutes.first().getLength();
+    if (!unclaimedRoutes.isEmpty()){
+      return unclaimedRoutes.first().getLength();
+  } else{
+      return 0;
+    }
   }
 
   /**
