@@ -12,6 +12,7 @@ public class RailroadBarons implements model.RailroadBarons {
   private model.RailroadMap railroadMap;
   private model.Deck deck;
   private ArrayList<model.Player> players;
+  private int currentPlayer;
 
   public RailroadBarons() {
     this.observers = new ArrayList<>();
@@ -120,7 +121,7 @@ public class RailroadBarons implements model.RailroadBarons {
    */
   @Override
   public model.RailroadMap getRailroadMap() {
-    return null;
+    return railroadMap;
   }
 
   /**
@@ -132,7 +133,7 @@ public class RailroadBarons implements model.RailroadBarons {
   //
   @Override
   public int numberOfCardsRemaining() {
-    return 0;
+    return deck.numberOfCardsRemaining();
   }
 
   /**
@@ -147,7 +148,8 @@ public class RailroadBarons implements model.RailroadBarons {
    */
   @Override
   public boolean canCurrentPlayerClaimRoute(int row, int col) {
-    return false;
+    model.Route currRoute = railroadMap.getRoute(row,col);
+    return players.get(currentPlayer).canClaimRoute(currRoute);
   }
 
   /**
