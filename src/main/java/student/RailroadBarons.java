@@ -2,6 +2,8 @@ package student;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import model.Baron;
 import model.Card;
 import model.RailroadBaronsException;
@@ -17,6 +19,7 @@ public class RailroadBarons implements model.RailroadBarons {
   public RailroadBarons() {
     this.observers = new ArrayList<>();
     this.players = new ArrayList<>();
+
 
   }
 
@@ -62,6 +65,8 @@ public class RailroadBarons implements model.RailroadBarons {
   public void startAGameWith(model.RailroadMap map) {
     railroadMap = map;
     deck = new Deck();
+    model.RailroadBarons railroadBarons = new RailroadBarons();
+
 
     deck.reset();
 
@@ -76,6 +81,11 @@ public class RailroadBarons implements model.RailroadBarons {
 
     for (model.Player player : players){
       player.reset(deck.drawACard(),deck.drawACard(),deck.drawACard(),deck.drawACard());
+    }
+
+    player1.startTurn(new Pair(deck.drawACard(), deck.drawACard()));
+    for (model.RailroadBaronsObserver observer : observers){
+      observer.turnStarted(this, player1);
     }
 
 
@@ -97,7 +107,7 @@ public class RailroadBarons implements model.RailroadBarons {
   public void startAGameWith(model.RailroadMap map, model.Deck deck) {
     railroadMap = map;
     this.deck = deck;
-
+    model.RailroadBarons railroadBarons = new RailroadBarons();
     deck.reset();
 
     model.Player player1 = new Player(Baron.RED);
@@ -111,6 +121,11 @@ public class RailroadBarons implements model.RailroadBarons {
 
     for (model.Player player : players){
       player.reset(deck.drawACard(),deck.drawACard(),deck.drawACard(),deck.drawACard());
+    }
+
+    player1.startTurn(new Pair(deck.drawACard(), deck.drawACard()));
+    for (model.RailroadBaronsObserver observer : observers){
+      observer.turnStarted(this, player1);
     }
   }
 
@@ -165,6 +180,7 @@ public class RailroadBarons implements model.RailroadBarons {
   public void claimRoute(int row, int col) throws RailroadBaronsException {
     model.Route currRoute = railroadMap.getRoute(row,col);
     players.get(currentPlayer).claimRoute(currRoute);
+    railroadMap.routeClaimed(currRoute);
 
   }
 
@@ -173,15 +189,23 @@ public class RailroadBarons implements model.RailroadBarons {
    */
   @Override
   public void endTurn() {
-    for(RailroadBaronsObserver observer : observers) {
-      observer.turnEnded(this, players.get(currentPlayer));
+    if (!gameIsOver()) {
+      for (RailroadBaronsObserver observer : observers) {
+        observer.turnEnded(this, players.get(currentPlayer));
+      }
+
+      currentPlayer = (currentPlayer + 1) % 4;
+
+      players.get(currentPlayer).startTurn(new Pair(deck.drawACard(), deck.drawACard()));
+      for (RailroadBaronsObserver observer : observers) {
+        observer.turnStarted(this, players.get(currentPlayer));
+      }
+    } else {
+      for (RailroadBaronsObserver observer : observers){
+        observer.gameOver(this, highestScore(players));
+      }
     }
 
-    currentPlayer = (currentPlayer + 1) %4;
-
-    for(RailroadBaronsObserver observer : observers) {
-      observer.turnEnded(this, players.get(currentPlayer));
-    }
 
   }
 
@@ -225,5 +249,9 @@ public class RailroadBarons implements model.RailroadBarons {
       }
     }
     return true;
+  }
+
+  public model.Player highestScore(ArrayList<model.Player> players){
+    return players.stream().max(Comparator.comparingInt(player -> player.getScore())).get();
   }
 }

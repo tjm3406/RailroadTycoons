@@ -30,8 +30,20 @@ public class RailroadMap implements model.RailroadMap {
    */
   public RailroadMap(List<model.Route> routes) {
     this.observers = new ArrayList<>();
-    this.routes = new TreeSet<>(Comparator.comparingInt(model.Route::getLength));
-    this.unclaimedRoutes = new TreeSet<>(Comparator.comparingInt(model.Route::getLength));
+    this.routes = new TreeSet<>(((o1, o2) -> {
+      if (o1.getLength()-o2.getLength() == 0){
+        return o1.hashCode() - o2.hashCode();
+      } else {
+        return o1.getLength()-o2.getLength();
+      }
+    }));
+    this.unclaimedRoutes = new TreeSet<>(((o1, o2) -> {
+      if (o1.getLength()-o2.getLength() == 0){
+        return o1.hashCode() - o2.hashCode();
+      } else {
+        return o1.getLength()-o2.getLength();
+      }
+    }));
 
     //lambda to get easternmost station
     this.rows = routes.stream().max(Comparator.comparingInt(a -> a.getDestination().getRow())).get()
@@ -196,4 +208,6 @@ public class RailroadMap implements model.RailroadMap {
   public TreeSet<model.Route> getUnclaimedRoutes() {
     return unclaimedRoutes;
   }
+
+
 }
