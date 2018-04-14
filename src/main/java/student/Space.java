@@ -3,7 +3,7 @@ package student;
 /**
  * Concrete implementation of the Space interface
  *
- * @author PedroBreton
+ * @author PedroBreton and Tyler Miller
  */
 public class Space implements model.Space {
 

@@ -4,6 +4,11 @@ import model.Baron;
 import model.Orientation;
 import model.Route;
 
+/** Concrete implementation of the Track class
+ *
+ * @Author Tyler Miller and Pedro Breton
+ */
+
 public class Track extends Space implements model.Track {
 
   private Route route;

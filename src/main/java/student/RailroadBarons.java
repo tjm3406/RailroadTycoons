@@ -9,6 +9,13 @@ import model.Card;
 import model.RailroadBaronsException;
 import model.RailroadBaronsObserver;
 
+
+/**
+ * Concrete implementation of the RailroadBarons class
+ *
+ * @Author Tyler Miller and Pedro Breton
+ */
+
 public class RailroadBarons implements model.RailroadBarons {
   private ArrayList<RailroadBaronsObserver> observers;
   private model.RailroadMap railroadMap;

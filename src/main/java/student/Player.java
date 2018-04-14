@@ -16,7 +16,7 @@ import model.RailroadBaronsException;
 /**
  * Concrete implementation of Player Interface
  *
- * @author PedroBreton
+ * @author PedroBreton and Tyler Miller
  */
 public class Player implements model.Player {
 

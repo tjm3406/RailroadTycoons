@@ -5,7 +5,7 @@ import model.Space;
 /**
  * Concrete implementation of Station interface
  *
- * @author PedroBreton
+ * @author PedroBreton and Tyler Miller
  */
 public class Station implements model.Station {
 

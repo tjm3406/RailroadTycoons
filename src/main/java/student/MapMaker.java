@@ -17,7 +17,7 @@ import model.RailroadBaronsException;
 /**
  * Concrete implementation of MapMaker Interface
  *
- * @author PedroBreton
+ * @author PedroBreton and Tyler Miller
  */
 public class MapMaker implements model.MapMaker {
 
