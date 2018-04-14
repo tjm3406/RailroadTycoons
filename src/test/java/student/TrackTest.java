@@ -8,6 +8,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * A test unit for the student.Track class
+ *
+ * @Author Tyler Miller and Pedro Breton
+ */
+
+
 public class TrackTest {
 
   private Track dummyTrack1;
