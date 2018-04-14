@@ -11,7 +11,7 @@ import org.junit.Test;
 /**
  * A test unit for the student.Route class
  *
- * @author PedroBreton
+ * @author PedroBreton and Tyler Miller
  */
 public class RouteTest {
 
