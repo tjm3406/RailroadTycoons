@@ -12,7 +12,7 @@ import model.RailroadMapObserver;
 /**
  * Concrete implementation of RailroadMap Interface
  *
- * @author PedroBreton
+ * @author PedroBreton and Tyler Miller
  */
 public class RailroadMap implements model.RailroadMap {
 

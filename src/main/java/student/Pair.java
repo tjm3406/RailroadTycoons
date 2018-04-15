@@ -5,7 +5,7 @@ import model.Card;
 /**
  * Concrete implementation of Pair Interface
  *
- * @author PedroBreton
+ * @author PedroBreton and Tyler Miller
  */
 public class Pair implements model.Pair {
 

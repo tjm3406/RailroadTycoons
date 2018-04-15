@@ -22,7 +22,7 @@ import org.junit.rules.ExpectedException;
 /**
  * A test unit for the student.Player class
  *
- * @author Pedro Breton
+ * @author Pedro Breton and Tyler Miller
  */
 public class PlayerTest {
 

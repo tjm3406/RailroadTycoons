@@ -8,7 +8,7 @@ import org.junit.Test;
 
 /**
  * A test unit for the student.Space class
- * @author PedroBreton
+ * @author PedroBreton and Tyler Miller
  */
 public class SpaceTest {
   private Space dummySpace1;

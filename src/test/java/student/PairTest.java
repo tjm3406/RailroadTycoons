@@ -10,7 +10,7 @@ import org.junit.Test;
 /**
  * A test unit for the student.Pair class
  *
- * @author Pedro Breton
+ * @author Pedro Breton and Tyler Miller
  */
 public class PairTest {
 

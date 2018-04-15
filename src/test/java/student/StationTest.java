@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 /**
  * A test unit for the student.Station class
- * @author PedroBreton
+ * @author PedroBreton and Tyler Miller
  */
 public class StationTest {
   private Station dummyStation1;

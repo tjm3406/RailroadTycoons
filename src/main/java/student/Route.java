@@ -11,7 +11,7 @@ import model.Track;
 /**
  * Concrete implementation of Route interface
  *
- * @author PedroBreton
+ * @author PedroBreton and Tyler Miller
  */
 public class Route implements model.Route {
 

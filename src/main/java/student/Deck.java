@@ -9,7 +9,7 @@ import model.Card;
 /**
  * Concrete implementation of Deck Interface
  *
- * @author PedroBreton
+ * @author PedroBreton and Tyler Miller
  */
 public class Deck implements model.Deck {
 
