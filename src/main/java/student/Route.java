@@ -103,7 +103,7 @@ public class Route implements model.Route {
    * @return List<Track> arrayList with all tracks
    */
   @Override
-  public List<Track> getTracks() {
+  public List<Track> getTracks()   {
     return tracks;
   }
 

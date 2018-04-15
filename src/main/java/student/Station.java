@@ -7,11 +7,9 @@ import model.Space;
  *
  * @author PedroBreton
  */
-public class Station implements model.Station {
+public class Station extends student.Space implements model.Station {
 
   private String name;
-  private int row;
-  private int col;
 
   /**
    * Constructs a Station instance
@@ -21,9 +19,9 @@ public class Station implements model.Station {
    * @param col column in the board
    */
   public Station(String name, int row, int col) {
+    super(row, col);
     this.name = name;
-    this.row = row;
-    this.col = col;
+
   }
 
   /**
@@ -43,7 +41,7 @@ public class Station implements model.Station {
    */
   @Override
   public int getRow() {
-    return row;
+    return super.getRow();
   }
 
   /**
@@ -53,7 +51,7 @@ public class Station implements model.Station {
    */
   @Override
   public int getCol() {
-    return col;
+    return super.getCol();
   }
 
   /**
@@ -64,6 +62,6 @@ public class Station implements model.Station {
    */
   @Override
   public boolean collocated(Space other) {
-    return row == other.getRow() && col == other.getCol();
+    return super.collocated(other);
   }
 }
