@@ -88,7 +88,7 @@
                     <limit implementation="org.jacoco.report.check.Limit">
                       <counter>COMPLEXITY</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>0.30</minimum>
+                      <minimum>0.60</minimum>
                     </limit>
                   </limits>
                 </rule>
@@ -117,6 +117,11 @@
       <artifactId>mockito-core</artifactId>
       <version>2.7.7</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>RELEASE</version>
     </dependency>
 
   </dependencies>
