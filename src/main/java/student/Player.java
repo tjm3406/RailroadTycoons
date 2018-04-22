@@ -29,6 +29,20 @@ public class Player implements model.Player {
   private Baron baron;
   private boolean hasClaimedRoute;
 
+  private Graph<model.Station> mapGraph;
+  private boolean northSouthBonus;
+  private boolean eastWestBonus;
+
+  private int northenmost;
+  private int southernmost;
+  private int easternmost;
+  private int westernmost;
+
+  private Station stationNorth;
+  private Station stationSouth;
+  private Station stationEast;
+  private Station stationWest;
+
   /**
    * Construct an instance of the Payer class
    *
@@ -46,6 +60,17 @@ public class Player implements model.Player {
     observers = new ArrayList<>();
     score = 0;
     hasClaimedRoute = false;
+
+    stationNorth = new Station("North", Integer.MIN_VALUE, Integer.MIN_VALUE);
+    stationEast = new Station("East", Integer.MIN_VALUE, Integer.MAX_VALUE);
+    stationSouth = new Station("South", Integer.MAX_VALUE, Integer.MAX_VALUE);
+    stationWest = new Station("West", Integer.MAX_VALUE, Integer.MIN_VALUE);
+    mapGraph = new Graph<>();
+
+    mapGraph.addVertex(stationNorth);
+    mapGraph.addVertex(stationEast);
+    mapGraph.addVertex(stationSouth);
+    mapGraph.addVertex(stationWest);
   }
 
   /**
@@ -219,10 +244,19 @@ public class Player implements model.Player {
       throw new RailroadBaronsException("Already claimed a route this turn!");
     } else {
       int length = route.getLength();
+      connect(route);
       routes.add(route);
       route.claim(baron);
       trainPieces -= length;
       score += route.getPointValue();
+
+
+
+
+
+
+
+
       for (PlayerObserver observer: observers){
         observer.playerChanged(this);
       }
@@ -355,4 +389,81 @@ public class Player implements model.Player {
   public String toString(){
     return getBaron().toString();
   }
+
+  public void setNorthenmost(int northenmost) {
+    this.northenmost = northenmost;
+  }
+
+  public void setSouthernmost(int southernmost) {
+    this.southernmost = southernmost;
+  }
+
+  public void setEasternmost(int easternmost) {
+    this.easternmost = easternmost;
+  }
+
+  public void setWesternmost(int westernmost) {
+    this.westernmost = westernmost;
+  }
+
+  private void connect(model.Route route){
+    model.Station origin = route.getOrigin();
+    model.Station destination = route.getDestination();
+    mapGraph.addVertex(origin);
+    mapGraph.addVertex(destination);
+    mapGraph.connect(origin, destination);
+
+    if (origin.getRow() == northenmost){
+      mapGraph.connect(stationNorth, origin);
+    }
+
+    if (destination.getRow() == northenmost){
+      mapGraph.connect(stationNorth,destination);
+    }
+
+    if (destination.getRow() == southernmost){
+      mapGraph.connect(stationSouth, destination);
+    }
+
+    if (origin.getRow() == southernmost){
+      mapGraph.connect(stationSouth, origin);
+    }
+
+    if (origin.getCol() == westernmost ){
+      mapGraph.connect(stationWest, origin);
+    }
+
+    if (destination.getCol() == westernmost){
+      mapGraph.connect(stationWest, destination);
+    }
+
+    if (destination.getCol() == easternmost){
+      mapGraph.connect(stationEast, destination);
+    }
+
+    if (origin.getCol() == easternmost){
+      mapGraph.connect(stationEast, origin);
+    }
+
+    for (model.Route ownedRoute : routes){
+      if (ownedRoute.getDestination().collocated(origin)){
+        mapGraph.connect(ownedRoute.getDestination(), destination);
+      }
+
+      if (ownedRoute.getOrigin().collocated(origin)){
+        mapGraph.connect(ownedRoute.getOrigin(), destination);
+      }
+
+      if (ownedRoute.getDestination().collocated(destination)){
+        mapGraph.connect(ownedRoute.getDestination(), origin);
+      }
+
+      if (ownedRoute.getOrigin().collocated(destination)){
+        mapGraph.connect(ownedRoute.getOrigin(), origin);
+      }
+    }
+
+
+  }
 }
+

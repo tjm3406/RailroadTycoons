@@ -26,6 +26,9 @@ public class RailroadBarons implements model.RailroadBarons {
   public RailroadBarons() {
     this.observers = new ArrayList<>();
     this.players = new ArrayList<>();
+
+
+
     model.Player player1 = new Player(Baron.RED);
     model.Player player2 = new Player(Baron.BLUE);
     model.Player player3 = new Player(Baron.GREEN);
@@ -79,10 +82,26 @@ public class RailroadBarons implements model.RailroadBarons {
   @Override
   public void startAGameWith(model.RailroadMap map) {
     railroadMap = map;
+
+    int northernmost = map.getRoutes().stream().min(Comparator.comparingInt(a -> a.getOrigin().getRow())).get()
+        .getOrigin().getRow();
+    int southernmost = map.getRoutes().stream().max(Comparator.comparingInt(a -> a.getDestination().getRow())).get()
+        .getDestination().getRow();
+    int easternmost = map.getRoutes().stream().max(Comparator.comparingInt(a -> a.getDestination().getCol())).get()
+        .getDestination().getCol();
+    int westernmost = map.getRoutes().stream().min(Comparator.comparingInt(a -> a.getOrigin().getCol())).get()
+        .getOrigin().getCol();
+
+    for (model.Player player: players){
+      student.Player studentPlayer = (student.Player) player;
+      studentPlayer.setNorthenmost(northernmost);
+      studentPlayer.setSouthernmost(southernmost);
+      studentPlayer.setEasternmost(easternmost);
+      studentPlayer.setWesternmost(westernmost);
+    }
+
+
     deck = new Deck();
-    model.RailroadBarons railroadBarons = new RailroadBarons();
-
-
     deck.reset();
 
 
@@ -114,8 +133,25 @@ public class RailroadBarons implements model.RailroadBarons {
   @Override
   public void startAGameWith(model.RailroadMap map, model.Deck deck) {
     railroadMap = map;
+
+    int northernmost = map.getRoutes().stream().min(Comparator.comparingInt(a -> a.getOrigin().getRow())).get()
+        .getOrigin().getRow();
+    int southernmost = map.getRoutes().stream().max(Comparator.comparingInt(a -> a.getDestination().getRow())).get()
+        .getDestination().getRow();
+    int easternmost = map.getRoutes().stream().max(Comparator.comparingInt(a -> a.getDestination().getCol())).get()
+        .getDestination().getCol();
+    int westernmost = map.getRoutes().stream().min(Comparator.comparingInt(a -> a.getOrigin().getCol())).get()
+        .getOrigin().getCol();
+
+    for (model.Player player: players){
+      student.Player studentPlayer = (student.Player) player;
+      studentPlayer.setNorthenmost(northernmost);
+      studentPlayer.setSouthernmost(southernmost);
+      studentPlayer.setEasternmost(easternmost);
+      studentPlayer.setWesternmost(westernmost);
+    }
+
     this.deck = deck;
-    model.RailroadBarons railroadBarons = new RailroadBarons();
     deck.reset();
 
 
