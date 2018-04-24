@@ -21,13 +21,13 @@ import model.RailroadBaronsException;
 public class Player implements model.Player {
 
   private int trainPieces;
-  private HashMap<Card, Integer> hand;
+  protected HashMap<Card, Integer> hand;
   private int score;
   private HashSet<model.Route> routes;
-  private model.Pair lastTwo;
-  private ArrayList<PlayerObserver> observers;
+  protected model.Pair lastTwo;
+  protected ArrayList<PlayerObserver> observers;
   private Baron baron;
-  private boolean hasClaimedRoute;
+  protected boolean hasClaimedRoute;
 
   private Graph<model.Station> mapGraph;
   private boolean northSouthBonus;
@@ -56,6 +56,7 @@ public class Player implements model.Player {
             Collectors.toList())) {
       hand.put(card, 0);
     }
+    hand.put(Card.NONE, Integer.MIN_VALUE);
     routes = new HashSet<>();
     observers = new ArrayList<>();
     score = 0;
@@ -65,7 +66,7 @@ public class Player implements model.Player {
     stationEast = new Station("East", Integer.MIN_VALUE, Integer.MAX_VALUE);
     stationSouth = new Station("South", Integer.MAX_VALUE, Integer.MAX_VALUE);
     stationWest = new Station("West", Integer.MAX_VALUE, Integer.MIN_VALUE);
-    mapGraph = new Graph<>();
+    mapGraph = new Graph<>(stationNorth,stationSouth,stationEast,stationWest);
 
     mapGraph.addVertex(stationNorth);
     mapGraph.addVertex(stationEast);
@@ -144,7 +145,7 @@ public class Player implements model.Player {
    * cards may have a value of {@link Card#NONE}.
    */
   @Override
-  public void startTurn(model.Pair dealt) {
+  public void startTurn(model.Pair dealt) throws RailroadBaronsException {
     lastTwo = dealt;
     hand.put(dealt.getFirstCard(), hand.get(dealt.getFirstCard()) + 1);
     hand.put(dealt.getSecondCard(), hand.get(dealt.getSecondCard()) + 1);
@@ -463,6 +464,15 @@ public class Player implements model.Player {
       }
     }
 
+    if (!northSouthBonus  && mapGraph.depthFirstSearch(stationNorth,stationSouth)){
+      northSouthBonus = true;
+      score += 5 * easternmost;
+    }
+
+    if (!eastWestBonus && mapGraph.depthFirstSearch(stationEast, stationWest)){
+      eastWestBonus = true;
+      score += 5*southernmost;
+    }
 
   }
 }

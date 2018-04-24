@@ -116,7 +116,7 @@ public class PlayerTest {
   }
 
   @Test
-  public void startTurn() {
+  public void startTurn() throws RailroadBaronsException {
     System.out.println("Running startTurn() test");
     player1.getHand().put(Card.RED, 3);
     player1.getHand().put(Card.WILD, 2);
@@ -130,7 +130,7 @@ public class PlayerTest {
   }
 
   @Test
-  public void getLastTwoCards() {
+  public void getLastTwoCards() throws RailroadBaronsException {
     System.out.println("Running getLastTwoCard()");
     player1.reset();
     assertEquals("No last two cards", Card.NONE, player1.getLastTwoCards().getFirstCard());
