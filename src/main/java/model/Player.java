@@ -51,7 +51,7 @@ public interface Player {
    * @param dealt a {@linkplain Pair pair of cards} to the player. Note that one or both of these
    * cards may have a value of {@link Card#NONE}.
    */
-  void startTurn(Pair dealt);
+  void startTurn(Pair dealt) throws RailroadBaronsException;
 
   /**
    * Returns the most recently dealt {@linkplain Pair pair of cards}. Note that one or both of the

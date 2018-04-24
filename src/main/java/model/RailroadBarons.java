@@ -38,7 +38,7 @@ public interface RailroadBarons {
    *
    * @param map The {@link RailroadMap} on which the game will be played.
    */
-  void startAGameWith(RailroadMap map);
+  void startAGameWith(RailroadMap map) throws RailroadBaronsException;
 
   /**
    * Starts a new {@linkplain RailroadBarons Railroad Barons} game with the specified {@linkplain

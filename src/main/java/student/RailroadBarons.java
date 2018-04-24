@@ -17,10 +17,10 @@ import model.RailroadBaronsObserver;
  */
 
 public class RailroadBarons implements model.RailroadBarons {
-  private ArrayList<RailroadBaronsObserver> observers;
-  private model.RailroadMap railroadMap;
+  protected ArrayList<RailroadBaronsObserver> observers;
+  protected model.RailroadMap railroadMap;
   private model.Deck deck;
-  private ArrayList<model.Player> players;
+  protected ArrayList<model.Player> players;
   private int currentPlayer;
 
   public RailroadBarons() {
@@ -80,7 +80,7 @@ public class RailroadBarons implements model.RailroadBarons {
    * @param map The {@link RailroadMap} on which the game will be played.
    */
   @Override
-  public void startAGameWith(model.RailroadMap map) {
+  public void startAGameWith(model.RailroadMap map) throws RailroadBaronsException {
     railroadMap = map;
 
     int northernmost = map.getRoutes().stream().min(Comparator.comparingInt(a -> a.getOrigin().getRow())).get()
@@ -159,7 +159,11 @@ public class RailroadBarons implements model.RailroadBarons {
       player.reset(deck.drawACard(),deck.drawACard(),deck.drawACard(),deck.drawACard());
     }
 
-    players.get(currentPlayer).startTurn(new Pair(deck.drawACard(), deck.drawACard()));
+    try {
+      players.get(currentPlayer).startTurn(new Pair(deck.drawACard(), deck.drawACard()));
+    } catch (RailroadBaronsException e) {
+      e.printStackTrace();
+    }
     for (model.RailroadBaronsObserver observer : observers){
       observer.turnStarted(this, players.get(currentPlayer));
     }
@@ -233,7 +237,11 @@ public class RailroadBarons implements model.RailroadBarons {
 
       currentPlayer = (currentPlayer + 1) % 4;
 
-      players.get(currentPlayer).startTurn(new Pair(deck.drawACard(), deck.drawACard()));
+      try {
+        players.get(currentPlayer).startTurn(new Pair(deck.drawACard(), deck.drawACard()));
+      } catch (RailroadBaronsException e) {
+        e.printStackTrace();
+      }
       for (RailroadBaronsObserver observer : observers) {
         observer.turnStarted(this, players.get(currentPlayer));
       }
