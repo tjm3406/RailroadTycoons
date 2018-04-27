@@ -253,11 +253,6 @@ public class Player implements model.Player {
 
 
 
-
-
-
-
-
       for (PlayerObserver observer: observers){
         observer.playerChanged(this);
       }
