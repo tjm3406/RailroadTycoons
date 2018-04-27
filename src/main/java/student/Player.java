@@ -446,23 +446,6 @@ public class Player implements model.Player {
       mapGraph.connect(stationEast, origin);
     }
 
-    for (model.Route ownedRoute : routes){
-      if (ownedRoute.getDestination().collocated(origin)){
-        mapGraph.connect(ownedRoute.getDestination(), destination);
-      }
-
-      if (ownedRoute.getOrigin().collocated(origin)){
-        mapGraph.connect(ownedRoute.getOrigin(), destination);
-      }
-
-      if (ownedRoute.getDestination().collocated(destination)){
-        mapGraph.connect(ownedRoute.getDestination(), origin);
-      }
-
-      if (ownedRoute.getOrigin().collocated(destination)){
-        mapGraph.connect(ownedRoute.getOrigin(), origin);
-      }
-    }
 
     if (!northSouthBonus  && mapGraph.depthFirstSearch(stationNorth,stationSouth)){
       northSouthBonus = true;

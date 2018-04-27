@@ -32,8 +32,6 @@ public class ComputerPlayer extends Player{
     }
 
     if (route != null) {
-      railroadBarons.canCurrentPlayerClaimRoute(route.getTracks().get(0).getRow(),
-          route.getTracks().get(0).getCol());
       railroadBarons.claimRoute(route.getTracks().get(0).getRow(),
           route.getTracks().get(0).getCol());
     }

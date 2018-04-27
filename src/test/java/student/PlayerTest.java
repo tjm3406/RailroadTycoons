@@ -76,7 +76,7 @@ public class PlayerTest {
 
     HashMap<Card, Integer> hand = new HashMap<>();
     for (Card card : Arrays.stream(Card.values())
-        .filter(card -> !card.equals(Card.NONE) && !card.equals(Card.BACK)).collect(
+        .filter(card -> !card.equals(Card.BACK)).collect(
             Collectors.toList())) {
       hand.put(card, 0);
     }

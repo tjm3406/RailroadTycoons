@@ -43,6 +43,8 @@ public class MapMaker implements model.MapMaker {
    */
   @Override
   public model.RailroadMap readMap(InputStream in) throws RailroadBaronsException {
+    stations.clear();
+    routeList.clear();
     Scanner input = new Scanner(in);
     String line;
     String[] lineSplit;
@@ -92,6 +94,8 @@ public class MapMaker implements model.MapMaker {
   @Override
   public void writeMap(model.RailroadMap map, OutputStream out) throws RailroadBaronsException {
     PrintStream printer = new PrintStream(out);
+    stations.clear();
+    routeList.clear();
 
     stations = new TreeMap<>();
     int counter = 0;
