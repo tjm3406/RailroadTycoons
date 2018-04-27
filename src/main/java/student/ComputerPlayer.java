@@ -7,6 +7,9 @@ import model.RailroadBaronsException;
 import model.RailroadMap;
 import model.Route;
 
+/**
+ * The class to represent an AI player
+ */
 public class ComputerPlayer extends Player{
   private RailroadBarons railroadBarons;
 
@@ -21,6 +24,10 @@ public class ComputerPlayer extends Player{
     this.railroadBarons = railroadBarons;
   }
 
+  /**
+   * How the AI player makes a move
+   * @throws RailroadBaronsException
+   */
   public void play() throws RailroadBaronsException {
     Route route = null;
 
@@ -39,6 +46,11 @@ public class ComputerPlayer extends Player{
     railroadBarons.endTurn();
   }
 
+  /**
+   * Starts the turn of an AI player
+   * @param dealt a {@linkplain Pair pair of cards} to the player. Note that one or both of these
+   * @throws RailroadBaronsException
+   */
   @Override
   public void startTurn(model.Pair dealt) throws RailroadBaronsException {
     lastTwo = dealt;

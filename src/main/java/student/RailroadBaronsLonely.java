@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import model.Baron;
 import model.RailroadBaronsObserver;
 
+/**
+ * This is the class that handles the lonely version of the game (vs. 3 AI)
+ */
 public class RailroadBaronsLonely extends RailroadBarons {
 
   public RailroadBaronsLonely(){

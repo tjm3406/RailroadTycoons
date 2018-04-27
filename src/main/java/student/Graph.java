@@ -19,6 +19,10 @@ public class Graph<T> {
     this.westStation = westStation;
   }
 
+  /**
+   * Adds a vertex to the graph
+   * @param data the vertex to be added.
+   */
   public void addVertex(T data) {
     Vertex<T> v = new Vertex<>(data);
     if (!vertices.containsKey(data)) {
@@ -26,10 +30,20 @@ public class Graph<T> {
     }
   }
 
+  /**
+   * Gets the vertex that is given
+   * @param data the vertex trying to be found
+   * @return the vertex they are looking for
+   */
   public Vertex<T> getVertex(T data) {
     return vertices.get(data);
   }
 
+  /**
+   * Connects vertices in the graph
+   * @param data1 the vertex to connect with
+   * @param data2 the other vertex to connect with
+   */
   public void connect(T data1, T data2) {
     Vertex<T> v1 = getVertex(data1);
     Vertex<T> v2 = getVertex(data2);
@@ -40,7 +54,12 @@ public class Graph<T> {
     }
   }
 
-
+  /**
+   * Performs a depth first search on the graph
+   * @param data1 the starting vertex
+   * @param data2 the ending vertex
+   * @return true if there is a connection, false otherwise
+   */
   public boolean depthFirstSearch(T data1, T data2) {
     Vertex<T> start = vertices.get(data1);
     Vertex<T> end = vertices.get(data2);
@@ -58,6 +77,14 @@ public class Graph<T> {
     return stack != null;
   }
 
+  /**
+   * Builds a stack using depth first search
+   * @param vertex starting vertex
+   * @param visited set of visited vertices
+   * @param end ending vertex
+   * @param length length of path
+   * @return the stack built between those vertices
+   */
   private Stack<Vertex<T>> buildPathDfs(Vertex<T> vertex,
       Set<Vertex<T>> visited,
       Vertex<T> end, int length) {
@@ -80,6 +107,12 @@ public class Graph<T> {
     return null;
   }
 
+  /**
+   * Checks if a path is available using DFS
+   * @param start the vertex to start at
+   * @param end the vertex to end at
+   * @return true if a path is available, false otherwise
+   */
   private boolean findPathDfs(Vertex<T> start, Vertex<T> end) {
     Set<Vertex<T>> visited = new HashSet<>();
     visited.add(start);
@@ -88,6 +121,11 @@ public class Graph<T> {
     return visited.contains(end);
   }
 
+  /**
+   * Visits a certain vertex using DFS
+   * @param vertex the vertex to be visited
+   * @param visited the set of visited vertices
+   */
   private void visitDfs(Vertex<T> vertex, Set<Vertex<T>> visited) {
     for(Vertex<T> neighbor: vertex.getNeighbors()) {
       if(!visited.contains(neighbor)) {
@@ -97,6 +135,12 @@ public class Graph<T> {
     }
   }
 
+  /**
+   * Performs a breadth first search on the graph
+   * @param data1 the starting vertex
+   * @param data2 the ending vetex
+   * @return true if a path exists, false otherwise
+   */
   public boolean breadthFirstSearch(T data1, T data2) {
     Vertex<T> start = vertices.get(data1);
     Vertex<T> end = vertices.get(data2);

@@ -253,11 +253,6 @@ public class Player implements model.Player {
 
 
 
-
-
-
-
-
       for (PlayerObserver observer: observers){
         observer.playerChanged(this);
       }
@@ -362,51 +357,99 @@ public class Player implements model.Player {
     return canContinue;
   }
 
+  /**
+   * Getter for the hand. Used for testing
+   * @return hashmap representing hand.
+   */
   public HashMap<Card, Integer> getHand() {
     return hand;
   }
 
+  /**
+   * Getter for whether or not the player has claimed a route this turn. Used for testing.
+   * @return true if has claimed a route, false otherwise
+   */
   public boolean getRoutesClaimedThisTurn() {
     return hasClaimedRoute;
   }
 
+  /**
+   * Set the number of train pieces a player has left. Used for testing purposes.
+   * @param trainPieces number of train pieces to set it to
+   */
   public void setTrainPieces(int trainPieces) {
     this.trainPieces = trainPieces;
   }
 
+  /**
+   * Getter for the players observers
+   * @return list of the players observers.
+   */
   public ArrayList<PlayerObserver> getObservers() {
     return observers;
   }
 
+  /**
+   * Getter for whether or not the player has claimed a route this turn. Used for testing.
+   * @return true if has claimed a route, false otherwise
+   */
   public boolean isHasClaimedRoute() {
     return hasClaimedRoute;
   }
 
+  /**
+   * Sets whether the player has claimed a route before. Used for testing.
+   * @param hasClaimedRoute the boolean to check if the player has claimed a route.
+   */
   public void setHasClaimedRoute(boolean hasClaimedRoute) {
     this.hasClaimedRoute = hasClaimedRoute;
   }
 
+  /**
+   * String representation of a player
+   * @return the player color
+   */
   @Override
   public String toString(){
     return getBaron().toString();
   }
 
+  /**
+   * Sets the location of the northernmost route owned
+   * @param northenmost the location of the northernmost route
+   */
   public void setNorthenmost(int northenmost) {
     this.northenmost = northenmost;
   }
 
+  /**
+   * Sets the location of the southernmost route owned
+   * @param southernmost the location of the southernmost route
+   */
   public void setSouthernmost(int southernmost) {
     this.southernmost = southernmost;
   }
 
+  /**
+   * Sets the location of the easternmost route owned
+   * @param easternmost the location of the easternmost route
+   */
   public void setEasternmost(int easternmost) {
     this.easternmost = easternmost;
   }
 
+  /**
+   * Sets the location of the westernmost route owned
+   * @param westernmost the location of the westernmost route
+   */
   public void setWesternmost(int westernmost) {
     this.westernmost = westernmost;
   }
 
+  /**
+   * Attempts to connect two routes that are owned by this player
+   * @param route the route attempting to be connected
+   */
   private void connect(model.Route route){
     model.Station origin = route.getOrigin();
     model.Station destination = route.getDestination();
