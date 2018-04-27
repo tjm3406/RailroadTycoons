@@ -21,7 +21,7 @@ public class Graph<T> {
 
   /**
    * Adds a vertex to the graph
-   * @param data the vertex to be added
+   * @param data the vertex to be added.
    */
   public void addVertex(T data) {
     Vertex<T> v = new Vertex<>(data);
