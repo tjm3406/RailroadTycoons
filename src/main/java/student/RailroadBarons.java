@@ -299,4 +299,8 @@ public class RailroadBarons implements model.RailroadBarons {
   public model.Player highestScore(ArrayList<model.Player> players){
     return players.stream().max(Comparator.comparingInt(player -> player.getScore())).get();
   }
+
+  public void setCurrentPlayer(int player) {
+    currentPlayer = player;
+  }
 }
