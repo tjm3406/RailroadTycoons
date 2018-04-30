@@ -492,12 +492,12 @@ public class Player implements model.Player {
 
     if (!northSouthBonus  && mapGraph.depthFirstSearch(stationNorth,stationSouth)){
       northSouthBonus = true;
-      score += 5 * easternmost;
+      score += 5 * (easternmost+1);
     }
 
     if (!eastWestBonus && mapGraph.depthFirstSearch(stationEast, stationWest)){
       eastWestBonus = true;
-      score += 5*southernmost;
+      score += 5*(southernmost+1);
     }
 
   }
