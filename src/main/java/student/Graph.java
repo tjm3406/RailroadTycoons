@@ -168,4 +168,7 @@ public class Graph<T> {
     return false;
   }
 
+  public Map<T, Vertex<T>> getVertices() {
+    return vertices;
+  }
 }
