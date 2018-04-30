@@ -326,12 +326,21 @@ public class ComputerPlayerTest {
 
     assertEquals("Route list should be empty. Not enough train pieces to claim", 0, player1.getClaimedRoutes().size());
 
-    player1.setTrainPieces(10);
+    railRoadBarons.setCurrentPlayer(1);
+    player1.setTrainPieces(7);
     player1.getHand().put(Card.RED,7);
     player1.play();
 
     assertEquals("Route list should be of length 1. Able to claim 1 route with 7 pieces", 1,
         player1.getClaimedRoutes().size());
+
+      railRoadBarons.setCurrentPlayer(1);
+      player1.setTrainPieces(10);
+      player1.getHand().put(Card.RED,10);
+      player1.play();
+
+      assertEquals("Route list should be of length 1. Able to claim 1 route with 10 pieces", 1,
+          player1.getClaimedRoutes().size());
 
   }
 }
